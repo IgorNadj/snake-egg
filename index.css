@@ -11,3 +11,12 @@
 	border: 1px solid #333;
 	text-align: center;
 }
+#grid .water {
+	background-color: #acf;
+}
+#grid .snake {
+	background-color: #afb;
+}
+#grid .egg {
+	background-color: #9d9;
+}
