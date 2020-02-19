@@ -29,7 +29,7 @@ const solution = [
 
 window.puzzle_render(combine(initial, solution));
 
-// const generated = window.puzzle_generate(10, 10, 9);
+const generated = window.puzzle_generate(10, 10, 9);
 
 // window.puzzle_render(generated);
 
