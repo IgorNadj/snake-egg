@@ -1,37 +1,37 @@
 const EGG = 'EGG';
 const SNAKE = 'SNAKE';
 
-// const initial = [
-// 	[null, null, EGG,  null, null, null, null, null, null, null],
-// 	[null, null, null, null, null, null, null, null, 5,    null],
-// 	[EGG,  null, null, null, null, null, null, null, null, null],
-// 	[null, 2,    null, null, null, null, null, null, null, null],
-// 	[null, null, null, null, null, null, null, null, null, null],
-// 	[null, null, null, null, null, null, null, null, null, null],
-// 	[null, null, null, null, null, null, null, null, null, null],
-// 	[null, null, null, null, null, null, null, null, null, null],
-// 	[null, null, null, null, null, null, null, null, null, null],	
-// 	[null, null, null, null, null, null, null, null, null, null],
-// ];
+const initial = [
+	[null, null, EGG,  null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null, 5,    null],
+	[EGG,  null, null, null, null, null, null, null, null, null],
+	[null, 2,    null, null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null, null, null],	
+	[null, null, null, null, null, null, null, null, null, null],
+];
 
-// const solution = [
-// 	[9, 9, null, SNAKE, SNAKE, 7, SNAKE, SNAKE, SNAKE, SNAKE],
-// 	[9, 9, 9, 9, SNAKE, 7, SNAKE, 5, 5, SNAKE],
-// 	[null, SNAKE, SNAKE, 9, SNAKE, 7, SNAKE, SNAKE, 5, SNAKE],
-// 	[2, 2, SNAKE, 9, SNAKE, 7, 7, SNAKE, 5, SNAKE],
-// 	[SNAKE, SNAKE, SNAKE, 9, SNAKE, 7, SNAKE, SNAKE, 5, SNAKE],
-// 	[SNAKE, 8, 8, SNAKE, SNAKE, 7, SNAKE, 4, SNAKE, SNAKE],
-// 	[SNAKE, SNAKE, 8, SNAKE, 1, SNAKE, SNAKE, 4, SNAKE, 6],
-// 	[3, SNAKE, 8, SNAKE, SNAKE, SNAKE, 4, 4, SNAKE, 6],
-// 	[3, SNAKE, 8, 8, 8, 8, SNAKE, SNAKE, SNAKE, 6],	
-// 	[3, SNAKE, SNAKE, SNAKE, SNAKE, SNAKE, SNAKE, 6, 6, 6],
-// ];
+const solution = [
+	[9, 9, null, SNAKE, SNAKE, 7, SNAKE, SNAKE, SNAKE, SNAKE],
+	[9, 9, 9, 9, SNAKE, 7, SNAKE, 5, 5, SNAKE],
+	[null, SNAKE, SNAKE, 9, SNAKE, 7, SNAKE, SNAKE, 5, SNAKE],
+	[2, 2, SNAKE, 9, SNAKE, 7, 7, SNAKE, 5, SNAKE],
+	[SNAKE, SNAKE, SNAKE, 9, SNAKE, 7, SNAKE, SNAKE, 5, SNAKE],
+	[SNAKE, 8, 8, SNAKE, SNAKE, 7, SNAKE, 4, SNAKE, SNAKE],
+	[SNAKE, SNAKE, 8, SNAKE, 1, SNAKE, SNAKE, 4, SNAKE, 6],
+	[3, SNAKE, 8, SNAKE, SNAKE, SNAKE, 4, 4, SNAKE, 6],
+	[3, SNAKE, 8, 8, 8, 8, SNAKE, SNAKE, SNAKE, 6],	
+	[3, SNAKE, SNAKE, SNAKE, SNAKE, SNAKE, SNAKE, 6, 6, 6],
+];
 
-// window.puzzle_render(combine(initial, solution));
+window.puzzle_render(combine(initial, solution));
 
-const generated = window.puzzle_generate(10, 10, 9);
+// const generated = window.puzzle_generate(10, 10, 9);
 
-window.puzzle_render(generated);
+// window.puzzle_render(generated);
 
 
 
