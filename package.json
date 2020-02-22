@@ -7,15 +7,22 @@
     "lib": "lib"
   },
   "scripts": {
-    "build": "tsc generate.ts",
+    "build": "ts-node generate.ts",
     "generate": "node generate.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -r ts-node/register test/**/*.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "immutable": "^4.0.0-rc.12",
-    "polyomino": "0.0.1-3",
+    "polyomino": "0.0.1-3"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.9",
+    "@types/mocha": "^7.0.1",
+    "chai": "^4.2.0",
+    "mocha": "^7.0.1",
+    "ts-node": "^8.6.2",
     "typescript": "^3.8.2"
   }
 }
