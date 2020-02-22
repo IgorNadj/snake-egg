@@ -1,3 +1,6 @@
+import {Polyomino} from 'polyomino';
+import {Set} from 'immutable';
+import {PlacedPolyomino} from './PlacedPolyomino';
 
 
 export class Puzzle {
@@ -5,33 +8,29 @@ export class Puzzle {
 	protected width: number;
 	protected height: number;
 	protected maxNumber: number;
-	protected grid;
+	protected placedPolyominos: Set<PlacedPolyomino>;
 
-	constructor(width, height, maxNumber) {
+	constructor(width, height, maxNumber, placedPolyominos = null) {
 		this.width = width;
 		this.height = height;
 		this.maxNumber = maxNumber;
-		this.grid = Array(height).fill(null).map(() => Array(width).fill(null));
+		this.placedPolyominos = placedPolyominos ? placedPolyominos : Set();
 	}
 
-	public getGrid() {
-		return this.grid;
+	public getPolyominos(): Set<PlacedPolyomino> {
+		return this.placedPolyominos;
 	}
 
-	public getWidth() {
+	public getWidth(): number {
 		return this.width;
 	}
 
-	public getHeight() {
+	public getHeight(): number {
 		return this.height;
 	}
 
-	public getMaxNumber() {
+	public getMaxNumber(): number {
 		return this.maxNumber;
-	}
-
-	public placePolyomino() {
-		
 	}
 
 }

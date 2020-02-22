@@ -1,6 +1,7 @@
 import {Polyomino} from "polyomino";
-import {Puzzle} from './Puzzle';
 import {Set} from 'immutable';
+import {GeneratingPuzzle} from './GeneratingPuzzle';
+import {Puzzle} from './Puzzle';
 
 
 
@@ -26,7 +27,7 @@ export class Generator {
 		 *  . . . . 1
 		 */
 
-		let puzzle = new Puzzle(width, height, maxNumber);
+		let puzzle = new GeneratingPuzzle(width, height, maxNumber);
 
 		// 1. Starting with biggest, place shape into fist space
 		for (let size = maxNumber; size >= 1; size--) {
@@ -36,14 +37,13 @@ export class Generator {
 				variants.forEach(variant => {
 					for (let x = 0; x < width; x++) {
 						for (let y = 0; y < height; y++) {
-							const isValid = puzzle.isValid(variant, x, y);
+							const newPuzzle = puzzle.place(variant, x, y);
+							const isValid = newPuzzle.isPolyonimoPlacementValid();
 							// 1.1. if valid, continue with next biggest shape
 							if (isValid) {
-								puzzle.place(variant, x, y);
 								// 1.1.1. if this is the smallest shape, check if puzzle valid
-								if (size === 1 && puzzle.isValid()) {
-									console.log(JSON.stringify(puzzle.getGrid()));
-									throw 'we found one!';
+								if (size === 1) {
+									throw 'polyominos ok, check if snake works TODO';
 								};
 								return false;
 							}
@@ -55,23 +55,12 @@ export class Generator {
 				});
 				
 
-				// const isIntermediatePuzzleValid = isIntermediatePuzzleValid();
 
 			});
 			
 		}
-		// for (let size = 1; size <= 9; size++) {
-		// 	const polyominos = Polyomino.get(size);
-		// 	console.log(size, polyominos.first().render(), polyominos.first().toString());
-		// 	allPolyominos[size] = polyominos;
-		// }
-
-
-		// const x = new Polyomino.get(4);
-
 
 		return puzzle;
-
 	}
 
 	protected variants(polyomino: Polyomino): Set<Polyomino> {
