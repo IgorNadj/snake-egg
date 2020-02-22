@@ -5,32 +5,10 @@ import {PlacedPolyomino} from './PlacedPolyomino';
 
 export class Puzzle {
 
-	protected width: number;
-	protected height: number;
-	protected maxNumber: number;
-	protected placedPolyominos: Set<PlacedPolyomino>;
+	readonly placedPolyominos: Set<PlacedPolyomino>;
 
-	constructor(width, height, maxNumber, placedPolyominos = null) {
-		this.width = width;
-		this.height = height;
-		this.maxNumber = maxNumber;
+	constructor(readonly width, readonly height, readonly maxNumber, placedPolyominos = null) {
 		this.placedPolyominos = placedPolyominos ? placedPolyominos : Set();
-	}
-
-	public getPolyominos(): Set<PlacedPolyomino> {
-		return this.placedPolyominos;
-	}
-
-	public getWidth(): number {
-		return this.width;
-	}
-
-	public getHeight(): number {
-		return this.height;
-	}
-
-	public getMaxNumber(): number {
-		return this.maxNumber;
 	}
 
 }

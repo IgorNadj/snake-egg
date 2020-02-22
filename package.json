@@ -9,7 +9,7 @@
   "scripts": {
     "build": "ts-node generate.ts",
     "generate": "node generate.js",
-    "test": "mocha -r ts-node/register test/**/*.ts"
+    "test": "mocha -r ts-node/register 'test/**/*.ts'"
   },
   "author": "",
   "license": "ISC",
