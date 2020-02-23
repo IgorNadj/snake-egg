@@ -7,7 +7,7 @@ export class Puzzle {
 
 	readonly placedPolyominos: Set<PlacedPolyomino>;
 
-	constructor(readonly width, readonly height, readonly maxNumber, placedPolyominos = null) {
+	constructor(readonly width: number, readonly height: number, readonly maxNumber: number, placedPolyominos: Set<PlacedPolyomino> | null = null) {
 		this.placedPolyominos = placedPolyominos ? placedPolyominos : Set();
 	}
 

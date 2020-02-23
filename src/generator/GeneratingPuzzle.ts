@@ -2,6 +2,8 @@ import {Puzzle} from './Puzzle';
 import {Polyomino} from 'polyomino';
 import {PlacedPolyomino} from './PlacedPolyomino';
 import {PolyominosInBounds} from './validator/PolyominosInBounds';
+import {PolyominosOverlap} from './validator/PolyominosOverlap';
+
 
 
 /**
@@ -9,7 +11,7 @@ import {PolyominosInBounds} from './validator/PolyominosInBounds';
  */
 export class GeneratingPuzzle extends Puzzle {
 
-	public place(polyomino: Polyomino, x, y): GeneratingPuzzle {
+	public place(polyomino: Polyomino, x: number, y: number): GeneratingPuzzle {
 		const placed = new PlacedPolyomino(polyomino, x, y);
 		const newPlacedPolyominos = this.placedPolyominos.add(placed);
 		return new GeneratingPuzzle(this.width, this.height, this.maxNumber, newPlacedPolyominos);
@@ -20,8 +22,8 @@ export class GeneratingPuzzle extends Puzzle {
 	 */
 	public isIntermediateStateValid(): boolean {
 		if (!PolyominosInBounds.isValid(this)) return false;
-
-		throw 'todo';
+		if (!PolyominosOverlap.isValid(this)) return false;
+		return true;
 	}
 
 	public render() {
