@@ -6,7 +6,7 @@ import {GeneratingPuzzle} from "../../../src/generator/GeneratingPuzzle";
 
 describe("PolyominosInBounds", () => {
 
-  it("happy path", () => {
+  it("validates", () => {
     let puzzle = new GeneratingPuzzle(5, 5, 3);
 
     const poly = Polyomino.get(1).first();
@@ -16,7 +16,7 @@ describe("PolyominosInBounds", () => {
     expect(PolyominosInBounds.isValid(puzzle)).to.equal(true);
   });
 
-  it("detects out of bounds on top left", () => {
+  it("fails out of bounds on top left", () => {
     let puzzle = new GeneratingPuzzle(5, 5, 3);
 
     const poly = Polyomino.get(1).first();
@@ -26,7 +26,7 @@ describe("PolyominosInBounds", () => {
     expect(PolyominosInBounds.isValid(puzzle)).to.equal(false);
   });
 
-  it("detects out of bounds on bottom right", () => {
+  it("fails out of bounds on bottom right", () => {
     let puzzle = new GeneratingPuzzle(5, 5, 3);
 
     const poly = Polyomino.get(1).first();

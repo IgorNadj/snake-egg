@@ -7,7 +7,7 @@ import {GeneratingPuzzle} from "../../../src/generator/GeneratingPuzzle";
 
 describe("PolyominosOverlap", () => {
 
-  it("happy path", () => {
+  it("validates", () => {
     let puzzle = new GeneratingPuzzle(5, 5, 3);
 
     puzzle = puzzle.place(Polyomino.get(1).first(), 0, 0);
@@ -16,7 +16,7 @@ describe("PolyominosOverlap", () => {
     expect(PolyominosOverlap.isValid(puzzle)).to.equal(true);
   });
 
-  it("detects direct overlap", () => {
+  it("fails direct overlap", () => {
     let puzzle = new GeneratingPuzzle(5, 5, 3);
 
     puzzle = puzzle.place(Polyomino.get(1).first(), 0, 0);
@@ -25,7 +25,7 @@ describe("PolyominosOverlap", () => {
     expect(PolyominosOverlap.isValid(puzzle)).to.equal(false);
   });
 
-  it("detects adjacent touching to right", () => {
+  it("fails adjacent touching to right", () => {
     let puzzle = new GeneratingPuzzle(5, 5, 3);
 
     puzzle = puzzle.place(Polyomino.get(1).first(), 0, 0);
@@ -34,7 +34,7 @@ describe("PolyominosOverlap", () => {
     expect(PolyominosOverlap.isValid(puzzle)).to.equal(false);
   });
 
-  it("detects adjacent touching below", () => {
+  it("fails adjacent touching below", () => {
     let puzzle = new GeneratingPuzzle(5, 5, 3);
 
     puzzle = puzzle.place(Polyomino.get(1).first(), 0, 0);
