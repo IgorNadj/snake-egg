@@ -10,10 +10,14 @@ export type Grid = GridCell[][];
 export enum GridCell { SNAKE, POLY };
 
 export type Neighbours = {
-    top: GridCell | null,
-    right: GridCell | null,
-    bottom: GridCell | null,
-    left: GridCell | null,
+	top: GridCell | null,
+	right: GridCell | null,
+	bottom: GridCell | null,
+	left: GridCell | null,
+	topRight: GridCell | null,
+	bottomRight: GridCell | null,
+	bottomLeft: GridCell | null,
+	topLeft: GridCell | null,
 }
 
 
@@ -59,14 +63,21 @@ export class GeneratingPuzzle extends Puzzle {
 
     public getGridNeighbours(grid: Grid, x: number, y: number): Neighbours {
         return {
-            top: y <= 0                 ? null : grid[y-1][x],
-            right: x >= this.width -1   ? null : grid[y][x+1],
+            top:    y <= 0              ? null : grid[y-1][x],
+            right:  x >= this.width -1  ? null : grid[y][x+1],
             bottom: y >= this.height -1 ? null : grid[y+1][x],
-            left: x <= 0                ? null : grid[y][x-1],
+			left:   x <= 0              ? null : grid[y][x-1],
+			topRight:    y <= 0 || x >= this.width - 1               ? null : grid[y-1][x+1],
+			bottomRight: y >= this.height - 1 || x >= this.width - 1 ? null : grid[y+1][x+1],
+			bottomLeft:  y >= this.height - 1 || x <= 0              ? null : grid[y+1][x-1],
+			topLeft:     y <= 0 || x <= 0                            ? null : grid[y-1][x-1],
         };
     }
 
-	public render() {
+	public render(): string {
+		return this.getGrid()
+			.map((row) => row.map((cell) => cell === GridCell.SNAKE ? '.' : (cell === GridCell.POLY ? 'P' : ' ')).join('') + '\n')
+			.join('');
 		//return this.placedPolyominos.
 	}
 

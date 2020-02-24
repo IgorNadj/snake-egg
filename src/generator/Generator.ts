@@ -1,11 +1,15 @@
 import {Polyomino} from "polyomino";
 import {Set} from 'immutable';
-import {GeneratingPuzzle} from './GeneratingPuzzle';
+import {GeneratingPuzzle, GridCell} from './GeneratingPuzzle';
 import {Puzzle} from './Puzzle';
 
 
 
 export class Generator {
+
+	private numberOfBiggestPoly;
+	private numberBiggestPolyDone = 0;
+	private countValidPolyPlacements = 0;
 
 	public generate(width: number, height: number, maxNumber: number) {
 
@@ -44,23 +48,29 @@ export class Generator {
 		const initialPuzzle = new GeneratingPuzzle(width, height, maxNumber);
 		
 		const puzzles = this.addPolyOfSize(initialPuzzle, maxNumber, Set());
-		console.log('puzzles', puzzles);
 
+		console.log('Found ' + puzzles.size + ' puzzles!');
+
+		puzzles.forEach((puzzle) => console.log(puzzle.render()));
+
+		console.log('Tried ' + this.countValidPolyPlacements + ' valid poly placements');
 
 		console.log('Done');
 		
 	}
 
-	/**
-	 * @return Set<Puzzle> valid puzzles
-	 */
-	protected addPolyOfSize(puzzle: GeneratingPuzzle, size: number, currentValidPuzzles: Set<Puzzle>): Set<Puzzle> {
+
+
+	protected addPolyOfSize(puzzle: GeneratingPuzzle, size: number, currentValidPuzzles: Set<GeneratingPuzzle>): Set<GeneratingPuzzle> {
 		if (size < 1) {
 			throw 'should have exited';	
 		}
 
 
 		const polyominos = Polyomino.get(size);
+		if (size === puzzle.maxNumber) {
+			this.numberOfBiggestPoly = polyominos.size;
+		}
 
 		// 1. Starting with biggest, place shape into fist space
 		// @ts-ignore
@@ -68,29 +78,63 @@ export class Generator {
 
 			const variants = this.variants(polyomino);
 
+			let variantNum = 0;
+
 			for (let variant of variants) {
+
+				if (size === puzzle.maxNumber) {
+					console.log('Progress on biggest poly: ' + this.numberBiggestPolyDone + ' / ' + this.numberOfBiggestPoly);
+					console.log('Progress on variants: ' + (variantNum+1) + ' / ' + variants.size);
+				}
+				variantNum++;
 
 				for (let x = 0; x < puzzle.width; x++) {
 
 					for (let y = 0; y < puzzle.height; y++) {
 
 						const newPuzzle = puzzle.place(variant, x, y);
-						const isValid = newPuzzle.isIntermediateStateValid();
+						const isPlacementValid = newPuzzle.isIntermediateStateValid();
 
 						// 1.1. if valid, continue with next biggest shape
-						if (isValid) {
+						if (isPlacementValid) {
 							// 1.1.1. if this is the smallest shape, check if puzzle valid
 							if (size === 1) {
-								throw 'polyominos ok, check if snake works TODO';
-							};
+
+								this.countValidPolyPlacements++;
+
+								// console.log(newPuzzle.render() + '\n\n');
+
+
+
+								const isPuzzleValid = newPuzzle.isValid();
+
+								if (!isPuzzleValid) {
+									continue;
+								} else {
+									// found a valid puzzle! Add it and continue looking for more
+									currentValidPuzzles = currentValidPuzzles.add(newPuzzle);
+									// console.log('Found ' + currentValidPuzzles.size + ' valid puzzles');
+								}
+
+							} else {
+								// valid so far, but haven't placed all, recurse down
+								const childValidPuzzles = this.addPolyOfSize(newPuzzle, size - 1, currentValidPuzzles)
 							
-							return this.addPolyOfSize(newPuzzle, size - 1, currentValidPuzzles);
+								currentValidPuzzles = currentValidPuzzles.merge(childValidPuzzles);
+							}
+							
 						}
 						// 1.2. if not valid, choose next space
 					}
 				}
 				// variant not valid in any position, try next polyomino
 			};
+
+			if (size === puzzle.maxNumber) {
+				this.numberBiggestPolyDone++;
+				break; // early exit for development
+			}
+
 		};
 		// all polyominos tested
 		// 1.2.1. if no spaces left, move back up to larger shape and continue
