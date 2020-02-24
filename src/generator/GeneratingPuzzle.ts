@@ -3,7 +3,18 @@ import {Polyomino} from 'polyomino';
 import {PlacedPolyomino} from './PlacedPolyomino';
 import {PolyominosInBounds} from './validator/PolyominosInBounds';
 import {PolyominosOverlap} from './validator/PolyominosOverlap';
+import {Snake} from './validator/Snake';
 
+export type Grid = GridCell[][];
+
+export enum GridCell { SNAKE, POLY };
+
+export type Neighbours = {
+    top: GridCell | null,
+    right: GridCell | null,
+    bottom: GridCell | null,
+    left: GridCell | null,
+}
 
 
 /**
@@ -25,6 +36,35 @@ export class GeneratingPuzzle extends Puzzle {
 		if (!PolyominosOverlap.isValid(this)) return false;
 		return true;
 	}
+
+	public isSnakeValid(): boolean {
+		return Snake.isValid(this);
+	}
+
+	public isValid(): boolean {
+		if (!this.isIntermediateStateValid()) return false;
+		if (!this.isSnakeValid()) return false;
+		return true;
+	}
+
+	public getGrid(): Grid {
+        const grid = Array(this.height).fill(null).map(() => Array(this.width).fill(GridCell.SNAKE));
+        this.placedPolyominos.forEach((poly) => {
+            poly.getAbsolutePoints().forEach((point) => {
+                grid[point.y][point.x] = GridCell.POLY;
+            });
+        });
+        return grid;
+    }
+
+    public getGridNeighbours(grid: Grid, x: number, y: number): Neighbours {
+        return {
+            top: y <= 0                 ? null : grid[y-1][x],
+            right: x >= this.width -1   ? null : grid[y][x+1],
+            bottom: y >= this.height -1 ? null : grid[y+1][x],
+            left: x <= 0                ? null : grid[y][x-1],
+        };
+    }
 
 	public render() {
 		//return this.placedPolyominos.
