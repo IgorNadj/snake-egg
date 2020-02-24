@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "generate": "node dist/generator/generate.js",
-    "test": "mocha -r ts-node/register 'test/**/*.ts'"
+    "test": "mocha -r ts-node/register 'test/generator/validator/SnakeTest.ts'"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +22,7 @@
     "@types/mocha": "^7.0.1",
     "chai": "^4.2.0",
     "mocha": "^7.0.1",
+    "ts-node": "^8.6.2",
     "typescript": "^3.8.2"
   }
 }
