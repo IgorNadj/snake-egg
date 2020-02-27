@@ -13,20 +13,23 @@ export class Snake {
 
         const grid = puzzle.getGrid();
 
-        let numberSnakeEndSegments = 0;
+        let validSnakeEnds: Set<PointInt> = Set();
+
+        let totalNumberOfSnakeCells = 0;
 
         for (let x = 0; x < puzzle.width; x++) {
             for (let y = 0; y < puzzle.height; y++) {
                 if (grid[y][x] === GridCell.SNAKE) {
+                    totalNumberOfSnakeCells++;
                     const neighbours = puzzle.getGridNeighbours(grid, x, y);
-                    const countSnakeAdjacentSegments = this.countSnakeAdjacentSegments(neighbours);
+                    const countSnakeAdjacentSegments = puzzle.countSnakeAdjacentSegments(neighbours);
                     if (countSnakeAdjacentSegments === 0) {
                         // orphan snake segment
                         return false;
                     }
                     if (countSnakeAdjacentSegments === 1) {
                         // must be the head/tail of the snake
-                        numberSnakeEndSegments++;
+                        validSnakeEnds = validSnakeEnds.add(new PointInt(x, y));
                     }
                     if (countSnakeAdjacentSegments > 2) {
                         // if 3, snake must have come back to itself
@@ -40,7 +43,7 @@ export class Snake {
                         //
                         // if we are centered on bottom left, then top right must not be snake
                         //
-                        if (this.snakeLoops(neighbours)) {
+                        if (puzzle.snakeLoopsImmediately(neighbours)) {
                             return false;
                         }
                     }
@@ -48,33 +51,34 @@ export class Snake {
             }
         }
 
-        if (numberSnakeEndSegments === 0) {
+        if (validSnakeEnds.size === 0) {
             // looping snake
             return false;
         }
-        if (numberSnakeEndSegments > 2) {
+        if (validSnakeEnds.size > 2) {
             // must have multiple snakes
             return false;
         }
 
+        /*
+         * Could still have multiple snakes, if the second snake loops back in on itself
+         * e.g.
+         *
+         * . . .
+         * 3 3 3
+         * . . .
+         * . 1 .
+         * . . .
+         *
+         * To detect this, we pick a snake head, traverse until we find the tail, and make sure how
+         * far we've traversed equals how many snake segments there are in the puzzle
+         */ 
+        const snakeLength = puzzle.getSnakeLength(validSnakeEnds.first());
+        if (snakeLength !== totalNumberOfSnakeCells) {
+            return false;
+        }
+
         return true;
-    }
-
-    protected static countSnakeAdjacentSegments(neighbours: Neighbours): number {
-        let count = 0;
-        if (neighbours.top === GridCell.SNAKE) count++;
-        if (neighbours.right === GridCell.SNAKE) count++;
-        if (neighbours.bottom === GridCell.SNAKE) count++;
-        if (neighbours.left === GridCell.SNAKE) count++;
-        return count;
-    }
-
-    protected static snakeLoops(neighbours: Neighbours): boolean {
-        if (neighbours.top === GridCell.SNAKE && neighbours.right === GridCell.SNAKE && neighbours.topRight === GridCell.SNAKE) return true;
-        if (neighbours.right === GridCell.SNAKE && neighbours.bottom === GridCell.SNAKE && neighbours.bottomRight === GridCell.SNAKE) return true;
-        if (neighbours.bottom === GridCell.SNAKE && neighbours.left === GridCell.SNAKE && neighbours.bottomLeft === GridCell.SNAKE) return true;
-        if (neighbours.left === GridCell.SNAKE && neighbours.top === GridCell.SNAKE && neighbours.topLeft === GridCell.SNAKE) return true;
-        return false;
     }
 
 }

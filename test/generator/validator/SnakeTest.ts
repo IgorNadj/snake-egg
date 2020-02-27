@@ -111,7 +111,7 @@ describe("SnakeTest", () => {
         expect(Snake.isValid(puzzle)).to.equal(false);
     });
 
-    it("disallows multiple snakes, each having loops", () => {
+    it("disallows multiple, looping snakes", () => {
         /*
          * . . .
          * . 1 .
@@ -127,6 +127,18 @@ describe("SnakeTest", () => {
             [1, 5],
         ], 3, 7);
         expect(Snake.isValid(puzzle)).to.equal(false);
+        /*
+         * . . .
+         * 3 3 3
+         * . . .
+         * . 1 .
+         * . . .
+         */
+        const puzzle2 = fillCells([
+            [0, 1], [1, 1], [2, 1],
+            [1, 3],
+        ], 3, 5);
+        expect(Snake.isValid(puzzle2)).to.equal(false);
     });
 
     function fillCells(cells: Array<[number, number]>, width: number, height: number): GeneratingPuzzle {
