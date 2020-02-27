@@ -128,8 +128,13 @@ export class GeneratingPuzzle extends Puzzle {
     }
 
 	public render(): string {
-		return this.getGrid()
-			.map((row) => row.map((cell) => cell === GridCell.SNAKE ? '.' : (cell === GridCell.POLY ? 'P' : ' ')).join('') + '\n')
+		const grid = this.getGrid();
+		this.placedPolyominos.forEach((poly) => {
+			poly.getAbsolutePoints().forEach((point) => {
+				grid[point.y][point.x] = poly.polyomino.points.size;
+			});
+		});
+		return grid.map((row) => row.map((cell) => cell === GridCell.SNAKE ? '.' : cell).join('') + '\n')
 			.join('');
 		//return this.placedPolyominos.
 	}
