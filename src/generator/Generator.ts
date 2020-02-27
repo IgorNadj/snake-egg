@@ -4,6 +4,12 @@ import {GeneratingPuzzle, GridCell} from './GeneratingPuzzle';
 import {Puzzle} from './Puzzle';
 
 
+// TODO:
+// 1. Store puzzles in file
+// 2. Write human solver
+// 3.   Create hinted puzzles, tested against human solver
+// 4. Create game UI
+// 5. Release it
 
 export class Generator {
 
