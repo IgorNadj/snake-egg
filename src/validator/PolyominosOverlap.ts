@@ -1,11 +1,10 @@
 import {PointInt} from 'polyomino';
-import {GeneratingPuzzle} from '../generator/GeneratingPuzzle';
-
+import { Puzzle } from '../Puzzle';
 
 
 export class PolyominosOverlap {
 
-	public static isValid(puzzle: GeneratingPuzzle): boolean {
+	public static isValid(puzzle: Puzzle): boolean {
 		
 		if (puzzle.placedPolyominos.size <= 1){ 
 			return true;

@@ -1,12 +1,11 @@
 import { PointInt } from 'polyomino';
 import { Set } from 'immutable';
 import { Puzzle, GridCell } from '../Puzzle';
-import { GeneratingPuzzle } from '../generator/GeneratingPuzzle';
 
 
 export class Snake {
 
-    public static isValid(puzzle: GeneratingPuzzle): boolean {
+    public static isValid(puzzle: Puzzle): boolean {
         if (puzzle.placedPolyominos.size === 0) {
             return false;
         }

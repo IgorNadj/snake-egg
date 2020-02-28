@@ -1,9 +1,9 @@
-import {GeneratingPuzzle} from '../generator/GeneratingPuzzle';
+import { Puzzle } from "../Puzzle";
 
 
 export class PolyominosInBounds {
 
-	public static isValid(puzzle: GeneratingPuzzle): boolean {
+	public static isValid(puzzle: Puzzle): boolean {
 		let valid = true;
 		puzzle.placedPolyominos.forEach(poly => {
 			const bounds = poly.getBounds();
