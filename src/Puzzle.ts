@@ -31,6 +31,7 @@ export enum SnakeDirection {
 export class Puzzle {
 
 	readonly placedPolyominos: Set<PlacedPolyomino>;
+	protected grid: Grid = null;
 
 	constructor(readonly width: number, readonly height: number, readonly maxNumber: number, placedPolyominos: Set<PlacedPolyomino> | null = null) {
 		this.placedPolyominos = placedPolyominos ? placedPolyominos : Set();
@@ -48,13 +49,17 @@ export class Puzzle {
 	}
 
 	public getGrid(): Grid {
-        const grid = Array(this.height).fill(null).map(() => Array(this.width).fill(GridCell.SNAKE));
-        this.placedPolyominos.forEach((poly) => {
-            poly.getAbsolutePoints().forEach((point) => {
-                grid[point.y][point.x] = GridCell.POLY;
-            });
-        });
-        return grid;
+		// lazy-evaluate, and cache for performace
+		if (this.grid === null) {
+			const grid = Array(this.height).fill(null).map(() => Array(this.width).fill(GridCell.SNAKE));
+			this.placedPolyominos.forEach((poly) => {
+				poly.getAbsolutePoints().forEach((point) => {
+					grid[point.y][point.x] = GridCell.POLY;
+				});
+			});
+			this.grid = grid;
+		}
+        return this.grid;
     }
 
     public getGridNeighbours(grid: Grid, x: number, y: number): Neighbours {
