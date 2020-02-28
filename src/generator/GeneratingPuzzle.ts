@@ -1,4 +1,4 @@
-import {Puzzle} from './Puzzle';
+import {Puzzle} from '../Puzzle';
 import {Polyomino, PointInt} from 'polyomino';
 import {PlacedPolyomino} from './PlacedPolyomino';
 import {PolyominosInBounds} from './validator/PolyominosInBounds';

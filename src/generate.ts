@@ -1,4 +1,4 @@
-import {Generator} from './Generator';
+import {Generator} from './generator/Generator';
 import {writeFile} from "fs";
 
 const generator = new Generator();

@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "generate": "node dist/generator/generate.js",
+    "generate": "node dist/generate.js",
     "test": "mocha -r ts-node/register 'test/**/**.ts'"
   },
   "author": "",

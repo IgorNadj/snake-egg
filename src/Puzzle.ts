@@ -1,6 +1,6 @@
 import {Polyomino} from 'polyomino';
 import {Set} from 'immutable';
-import {PlacedPolyomino} from './PlacedPolyomino';
+import {PlacedPolyomino} from './generator/PlacedPolyomino';
 
 
 export class Puzzle {

@@ -1,7 +1,7 @@
 import { GeneratingPuzzle, Neighbours, GridCell } from '../GeneratingPuzzle';
 import { PointInt } from 'polyomino';
 import { Set } from 'immutable';
-import { Puzzle } from '../Puzzle';
+import { Puzzle } from '../../Puzzle';
 
 
 export class Snake {
