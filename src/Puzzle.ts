@@ -8,7 +8,10 @@ import { PolyominosOverlap } from './validator/PolyominosOverlap';
 
 export type Grid = GridCell[][];
 
-export enum GridCell { SNAKE, POLY };
+export enum GridCell { 
+    SNAKE = ".", 
+    POLY = "P"
+};
 
 export type Neighbours = {
 	top: GridCell | null,
@@ -122,15 +125,15 @@ export class Puzzle {
     }
 
 	public render(): string {
+        const renderedGrid: string[][] = Array(this.height).fill(null).map(() => Array(this.width).fill(GridCell.SNAKE));
 		const grid = this.getGrid();
 		this.placedPolyominos.forEach((poly) => {
 			poly.getAbsolutePoints().forEach((point) => {
-				grid[point.y][point.x] = poly.polyomino.points.size;
+				renderedGrid[point.y][point.x] = '' + poly.polyomino.points.size;
 			});
 		});
-		return grid.map((row) => row.map((cell) => cell === GridCell.SNAKE ? '.' : cell).join('') + '\n')
+		return renderedGrid.map((row) => row.join('') + '\n')
 			.join('');
-		//return this.placedPolyominos.
 	}
 
 }

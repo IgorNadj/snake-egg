@@ -4,7 +4,7 @@ import { Snake } from "../../src/validator/Snake";
 import { GeneratingPuzzle } from '../../src/generator/GeneratingPuzzle';
 
 
-describe("SnakeTest", () => {
+describe("Snake", () => {
 
     it("fails empty puzzle", () => {
         const puzzle = new GeneratingPuzzle(5, 5, 3);
