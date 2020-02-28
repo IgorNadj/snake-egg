@@ -1,6 +1,9 @@
 import {Polyomino, PointInt} from 'polyomino';
 import {Set} from 'immutable';
 import {PlacedPolyomino} from './polyomino/PlacedPolyomino';
+import { Snake } from './validator/Snake';
+import { PolyominosInBounds } from './validator/PolyominosInBounds';
+import { PolyominosOverlap } from './validator/PolyominosOverlap';
 
 
 export type Grid = GridCell[][];
@@ -31,6 +34,17 @@ export class Puzzle {
 
 	constructor(readonly width: number, readonly height: number, readonly maxNumber: number, placedPolyominos: Set<PlacedPolyomino> | null = null) {
 		this.placedPolyominos = placedPolyominos ? placedPolyominos : Set();
+	}
+
+	public isSnakeValid(): boolean {
+		return ;
+	}
+
+	public isValid(): boolean {
+		if (!PolyominosInBounds.isValid(this)) return false;
+		if (!PolyominosOverlap.isValid(this)) return false;
+		if (!Snake.isValid(this)) return false;
+		return true;
 	}
 
 	public getGrid(): Grid {

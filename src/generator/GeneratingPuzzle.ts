@@ -27,14 +27,4 @@ export class GeneratingPuzzle extends Puzzle {
 		return true;
 	}
 
-	public isSnakeValid(): boolean {
-		return Snake.isValid(this);
-	}
-
-	public isValid(): boolean {
-		if (!this.isIntermediateStateValid()) return false;
-		if (!this.isSnakeValid()) return false;
-		return true;
-	}
-
 }
