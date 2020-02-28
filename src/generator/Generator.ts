@@ -1,7 +1,7 @@
 import {Polyomino} from "polyomino";
 import {Set} from 'immutable';
-import {GeneratingPuzzle, GridCell} from './GeneratingPuzzle';
-import {Puzzle} from './Puzzle';
+import {GeneratingPuzzle} from './GeneratingPuzzle';
+import {Puzzle} from '../Puzzle';
 
 
 // TODO:

@@ -2,7 +2,6 @@
 import { expect } from 'chai';
 import { Polyomino } from 'polyomino';
 import { Snake } from "../../../src/generator/validator/Snake";
-import { PlacedPolyomino } from "../../../src/generator/PlacedPolyomino";
 import { GeneratingPuzzle } from "../../../src/generator/GeneratingPuzzle";
 
 

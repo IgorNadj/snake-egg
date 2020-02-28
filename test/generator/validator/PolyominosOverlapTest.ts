@@ -1,7 +1,6 @@
 import {expect} from 'chai';
 import {Polyomino} from 'polyomino';
 import {PolyominosOverlap} from "../../../src/generator/validator/PolyominosOverlap";
-import {PlacedPolyomino} from "../../../src/generator/PlacedPolyomino";
 import {GeneratingPuzzle} from "../../../src/generator/GeneratingPuzzle";
 
 

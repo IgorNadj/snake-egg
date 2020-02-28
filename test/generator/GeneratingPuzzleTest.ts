@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { Polyomino, PointInt } from 'polyomino';
-import { GeneratingPuzzle, GridCell, Neighbours } from "../../src/generator/GeneratingPuzzle";
+import { GeneratingPuzzle } from "../../src/generator/GeneratingPuzzle";
+import { GridCell, Neighbours } from '../../src/Puzzle';
 
 
 describe("GeneratingPuzzle", () => {
