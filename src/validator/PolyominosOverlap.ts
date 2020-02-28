@@ -1,5 +1,5 @@
 import {PointInt} from 'polyomino';
-import {GeneratingPuzzle} from '../GeneratingPuzzle';
+import {GeneratingPuzzle} from '../generator/GeneratingPuzzle';
 
 
 

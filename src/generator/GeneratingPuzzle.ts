@@ -1,8 +1,8 @@
 import {Puzzle} from '../Puzzle';
 import {Polyomino, PointInt} from 'polyomino';
-import {PolyominosInBounds} from './validator/PolyominosInBounds';
-import {PolyominosOverlap} from './validator/PolyominosOverlap';
-import {Snake} from './validator/Snake';
+import {PolyominosInBounds} from '../validator/PolyominosInBounds';
+import {PolyominosOverlap} from '../validator/PolyominosOverlap';
+import {Snake} from '../validator/Snake';
 import { PlacedPolyomino } from '../polyomino/PlacedPolyomino';
 
 

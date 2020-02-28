@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {Polyomino} from 'polyomino';
-import {PolyominosInBounds} from "../../../src/generator/validator/PolyominosInBounds";
-import {GeneratingPuzzle} from "../../../src/generator/GeneratingPuzzle";
+import { GeneratingPuzzle } from '../../src/generator/GeneratingPuzzle';
+import { PolyominosInBounds } from '../../src/validator/PolyominosInBounds';
 
 
 describe("PolyominosInBounds", () => {

@@ -1,4 +1,4 @@
-import {GeneratingPuzzle} from '../GeneratingPuzzle';
+import {GeneratingPuzzle} from '../generator/GeneratingPuzzle';
 
 
 export class PolyominosInBounds {

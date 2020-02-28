@@ -1,8 +1,7 @@
-
 import { expect } from 'chai';
 import { Polyomino } from 'polyomino';
-import { Snake } from "../../../src/generator/validator/Snake";
-import { GeneratingPuzzle } from "../../../src/generator/GeneratingPuzzle";
+import { Snake } from "../../src/validator/Snake";
+import { GeneratingPuzzle } from '../../src/generator/GeneratingPuzzle';
 
 
 describe("SnakeTest", () => {

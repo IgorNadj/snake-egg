@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {Polyomino} from 'polyomino';
-import {PolyominosOverlap} from "../../../src/generator/validator/PolyominosOverlap";
-import {GeneratingPuzzle} from "../../../src/generator/GeneratingPuzzle";
+import { GeneratingPuzzle } from '../../src/generator/GeneratingPuzzle';
+import { PolyominosOverlap } from '../../src/validator/PolyominosOverlap';
 
 
 describe("PolyominosOverlap", () => {
