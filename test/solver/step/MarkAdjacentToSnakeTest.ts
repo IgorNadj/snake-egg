@@ -1,9 +1,10 @@
 import { expect } from 'chai';
 import { Polyomino, PointInt } from 'polyomino';
-import { GridCell, Neighbours, Puzzle } from '../../../src/Puzzle';
+import { GridCell, Puzzle } from '../../../src/Puzzle';
 import { Set } from 'immutable';
 import { SolvingPuzzle } from "../../../src/solver/SolvingPuzzle";
 import { MarkAdjacentToSnake } from '../../../src/solver/step/MarkAdjacentToSnake';
+import { Grid } from '../../../src/Grid';
 
 
 describe("MarkAdjacentToSnake", () => {
@@ -24,13 +25,16 @@ describe("MarkAdjacentToSnake", () => {
     *   _ P . P _
     *   _ P . P _
     */
-    let puzzle = new SolvingPuzzle(5, 4, 5);
-    puzzle = puzzle.setSolveGrid([
+    let solveGrid: Grid<GridCell> = new Grid(5, 4);
+
+    solveGrid = solveGrid.fromArray([
       [null, null, null, null, null],
       [null, null, GridCell.SNAKE, null, null],
       [null, null, GridCell.SNAKE, null, null],
       [null, GridCell.POLY, GridCell.SNAKE, GridCell.POLY, null],
     ]);
+
+    const puzzle = new SolvingPuzzle(5, 4, 5, null, solveGrid);
 
     const expectedSolveGrid = [
       [null, null, null, null, null],
@@ -43,7 +47,7 @@ describe("MarkAdjacentToSnake", () => {
 
     step.solveStep(puzzle);
 
-    expect(puzzle.solveGrid).to.deep.equal(expectedSolveGrid);
+    expect(puzzle.getSolveGrid().toArray()).to.deep.equal(expectedSolveGrid);
   });
 
   it("marks adjacent as poly when turning", () => {
@@ -60,12 +64,15 @@ describe("MarkAdjacentToSnake", () => {
     *   P P . _ _
     *   . . . P _
     */
-    let puzzle = new SolvingPuzzle(5, 3, 5);
-    puzzle = puzzle.setSolveGrid([
+    let solveGrid: Grid<GridCell> = new Grid(5, 3);
+
+    solveGrid = solveGrid.fromArray([
       [null, null, null, null, null],
       [GridCell.POLY, GridCell.POLY, GridCell.SNAKE, null, null],
       [GridCell.SNAKE, GridCell.SNAKE, GridCell.SNAKE, null, null],
     ]);
+
+    const puzzle = new SolvingPuzzle(5, 3, 5, null, solveGrid);
 
     const expectedSolveGrid = [
       [null, null, null, null, null],
@@ -77,7 +84,7 @@ describe("MarkAdjacentToSnake", () => {
 
     step.solveStep(puzzle);
 
-    expect(puzzle.solveGrid).to.deep.equal(expectedSolveGrid);
+    expect(puzzle.getSolveGrid().toArray()).to.deep.equal(expectedSolveGrid);
   });
 
 });

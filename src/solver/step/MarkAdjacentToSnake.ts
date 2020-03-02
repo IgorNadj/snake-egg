@@ -8,11 +8,12 @@ export class MarkAdjacentToSnake implements SolveStep {
 
         for (let x = 0; x < puzzle.width; x++) {
             for (let y = 0; y < puzzle.height; y++) {
-                const solveNeighbours = puzzle.getGridNeighbours(puzzle.solveGrid, x, y);
-
-                if (puzzle.solveGrid[y][x] !== GridCell.SNAKE) {
+                if (puzzle.getSolveGrid().get(x, y) !== GridCell.SNAKE) {
                     continue;
                 }
+
+                const solveNeighbours = puzzle.getSolveGrid().getGridNeighbours(x, y);
+
                 if (puzzle.countSnakeAdjacentSegments(solveNeighbours) > 1) {
                     // this is not the head/tail of the snake, don't need to worry about it
                     continue;
@@ -36,7 +37,7 @@ export class MarkAdjacentToSnake implements SolveStep {
                 if (solveNeighbours.left === GridCell.SNAKE) {
                     // we came from left, topLeft and bottomLeft must be POLY
                     puzzle.solve(x - 1, y - 1, GridCell.POLY);
-                    puzzle.solve(x + 1, y - 1, GridCell.POLY);
+                    puzzle.solve(x - 1, y + 1, GridCell.POLY);
                 }
             }
         }

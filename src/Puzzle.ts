@@ -4,25 +4,12 @@ import { PlacedPolyomino } from './polyomino/PlacedPolyomino';
 import { Snake } from './validator/Snake';
 import { PolyominosInBounds } from './validator/PolyominosInBounds';
 import { PolyominosOverlap } from './validator/PolyominosOverlap';
-
-
-export type Grid = GridCell[][];
+import { Grid, Neighbours } from "./Grid";
 
 export enum GridCell {
     SNAKE = ".",
     POLY = "P"
 };
-
-export type Neighbours = {
-    top: GridCell | null,
-    right: GridCell | null,
-    bottom: GridCell | null,
-    left: GridCell | null,
-    topRight: GridCell | null,
-    bottomRight: GridCell | null,
-    bottomLeft: GridCell | null,
-    topLeft: GridCell | null,
-}
 
 export enum SnakeDirection {
     top = "top",
@@ -31,10 +18,15 @@ export enum SnakeDirection {
     left = "left",
 };
 
+/**
+ * A puzzle represents a grid of cells, with all cells solved.
+ * 
+ * A puzzle ready for a human to tackle is called a HintedPuzzle.
+ */
 export class Puzzle {
 
     readonly placedPolyominos: Set<PlacedPolyomino>;
-    protected grid: Grid = null;
+    protected grid: Grid<GridCell> = null;
 
     constructor(readonly width: number, readonly height: number, readonly maxNumber: number, placedPolyominos: Set<PlacedPolyomino> | null = null) {
         this.placedPolyominos = placedPolyominos ? placedPolyominos : Set();
@@ -51,13 +43,14 @@ export class Puzzle {
         return true;
     }
 
-    public getGrid(): Grid {
+    public getGrid(): Grid<GridCell> {
         // lazy-evaluate, and cache for performace
         if (this.grid === null) {
-            const grid = Array(this.height).fill(null).map(() => Array(this.width).fill(GridCell.SNAKE));
+            let grid: Grid<GridCell> = new Grid(this.width, this.height);
+            grid = grid.setAll(GridCell.SNAKE);
             this.placedPolyominos.forEach((poly) => {
                 poly.getAbsolutePoints().forEach((point) => {
-                    grid[point.y][point.x] = GridCell.POLY;
+                    grid = grid.set(point.x, point.y, GridCell.POLY);
                 });
             });
             this.grid = grid;
@@ -65,20 +58,7 @@ export class Puzzle {
         return this.grid;
     }
 
-    public getGridNeighbours(grid: Grid, x: number, y: number): Neighbours {
-        return {
-            top: y <= 0 ? null : grid[y - 1][x],
-            right: x >= this.width - 1 ? null : grid[y][x + 1],
-            bottom: y >= this.height - 1 ? null : grid[y + 1][x],
-            left: x <= 0 ? null : grid[y][x - 1],
-            topRight: y <= 0 || x >= this.width - 1 ? null : grid[y - 1][x + 1],
-            bottomRight: y >= this.height - 1 || x >= this.width - 1 ? null : grid[y + 1][x + 1],
-            bottomLeft: y >= this.height - 1 || x <= 0 ? null : grid[y + 1][x - 1],
-            topLeft: y <= 0 || x <= 0 ? null : grid[y - 1][x - 1],
-        };
-    }
-
-    public countSnakeAdjacentSegments(neighbours: Neighbours): number {
+    public countSnakeAdjacentSegments(neighbours: Neighbours<GridCell>): number {
         let count = 0;
         if (neighbours.top === GridCell.SNAKE) count++;
         if (neighbours.right === GridCell.SNAKE) count++;
@@ -87,7 +67,7 @@ export class Puzzle {
         return count;
     }
 
-    public snakeLoopsImmediately(neighbours: Neighbours): boolean {
+    public snakeLoopsImmediately(neighbours: Neighbours<GridCell>): boolean {
         if (neighbours.top === GridCell.SNAKE && neighbours.right === GridCell.SNAKE && neighbours.topRight === GridCell.SNAKE) return true;
         if (neighbours.right === GridCell.SNAKE && neighbours.bottom === GridCell.SNAKE && neighbours.bottomRight === GridCell.SNAKE) return true;
         if (neighbours.bottom === GridCell.SNAKE && neighbours.left === GridCell.SNAKE && neighbours.bottomLeft === GridCell.SNAKE) return true;
@@ -99,7 +79,7 @@ export class Puzzle {
      * Warning: make sure you do a start from a head/tail, rather than a looping snake, to avoid infinite loop regression
      */
     public getSnakeLength(currentPos: PointInt, comingFromDirection: SnakeDirection = null): number {
-        const neighbours = this.getGridNeighbours(this.getGrid(), currentPos.x, currentPos.y);
+        const neighbours = this.getGrid().getGridNeighbours(currentPos.x, currentPos.y);
         for (let direction of Object.keys(SnakeDirection)) {
             if (direction === comingFromDirection) {
                 // e.g. left is snake, but we came from the left, so ignore it

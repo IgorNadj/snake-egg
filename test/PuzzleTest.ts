@@ -1,8 +1,9 @@
 import { expect } from 'chai';
 import { Polyomino, PointInt } from 'polyomino';
-import { GridCell, Neighbours, Puzzle } from '../src/Puzzle';
+import { GridCell, Puzzle } from '../src/Puzzle';
 import { PlacedPolyomino } from '../src/polyomino/PlacedPolyomino';
 import { Set } from 'immutable';
+import { Neighbours } from '../src/Grid';
 
 
 describe("Puzzle", () => {
@@ -10,40 +11,12 @@ describe("Puzzle", () => {
   it("getGrid works", () => {
     const puzzle = getPuzzle(2, 2, 1, [[0, 0]]);
 
-    const grid = puzzle.getGrid();
-
     const expected = [
       [GridCell.POLY, GridCell.SNAKE],
       [GridCell.SNAKE, GridCell.SNAKE],
     ];
 
-    expect(grid).to.deep.equal(expected);
-  });
-
-  it("getGridNeighbours works", () => {
-    /*
-     * 1 .
-     * . .
-     */
-
-    const puzzle = getPuzzle(2, 2, 1, [[0, 0]]);
-
-    const grid = puzzle.getGrid();
-
-    const neighbours = puzzle.getGridNeighbours(grid, 1, 0);
-
-    const expected = {
-      top: null,
-      right: null,
-      bottom: GridCell.SNAKE,
-      left: GridCell.POLY,
-      topRight: null,
-      bottomRight: null,
-      bottomLeft: GridCell.SNAKE,
-      topLeft: null,
-    };
-
-    expect(neighbours).to.deep.equal(expected);
+    expect(puzzle.getGrid().toArray()).to.deep.equal(expected);
   });
 
   it("countSnakeAdjacentSegments works", () => {
@@ -57,7 +30,7 @@ describe("Puzzle", () => {
 
     const puzzle = getPuzzle(3, 3, 1, [[0, 1], [1, 0], [2, 2]]);
 
-    const neighbours: Neighbours = {
+    const neighbours: Neighbours<GridCell> = {
       top: GridCell.POLY,
       right: GridCell.SNAKE,
       bottom: GridCell.SNAKE,

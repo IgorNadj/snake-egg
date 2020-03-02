@@ -1,3 +1,15 @@
+
+export type Neighbours<X> = {
+    top: X | null,
+    right: X | null,
+    bottom: X | null,
+    left: X | null,
+    topRight: X | null,
+    bottomRight: X | null,
+    bottomLeft: X | null,
+    topLeft: X | null,
+}
+
 /**
  * Immutable grid of type T means 2d array of cells of T e.g. number
  */
@@ -10,16 +22,12 @@ export class Grid<T> {
     }
 
     public get(x: number, y: number): T {
+        this.checkBounds(x, y);
         return this.grid[y][x];
     }
 
     public set(x: number, y: number, cell: T): Grid<T> {
-        if (x < 0 || x >= this.width) {
-            throw 'x out of bounds';
-        }
-        if (y < 0 || y >= this.height) {
-            throw 'y out of bounds';
-        }
+        this.checkBounds(x, y);
         const newGrid: T[][] = Array(this.height);
         for (let newY = 0; newY < this.height; newY++) {
             newGrid[newY] = this.grid[newY].slice();
@@ -32,6 +40,20 @@ export class Grid<T> {
         const grid: Grid<T> = new Grid(this.width, this.height);
         grid.grid = this.grid = Array(this.height).fill(null).map((row) => Array(this.width).fill(cell));
         return grid;
+    }
+
+    public getGridNeighbours(x: number, y: number): Neighbours<T> {
+        const grid = this.toArray();
+        return {
+            top: y <= 0 ? null : grid[y - 1][x],
+            right: x >= this.width - 1 ? null : grid[y][x + 1],
+            bottom: y >= this.height - 1 ? null : grid[y + 1][x],
+            left: x <= 0 ? null : grid[y][x - 1],
+            topRight: y <= 0 || x >= this.width - 1 ? null : grid[y - 1][x + 1],
+            bottomRight: y >= this.height - 1 || x >= this.width - 1 ? null : grid[y + 1][x + 1],
+            bottomLeft: y >= this.height - 1 || x <= 0 ? null : grid[y + 1][x - 1],
+            topLeft: y <= 0 || x <= 0 ? null : grid[y - 1][x - 1],
+        };
     }
 
     public fromArray(array: T[][]): Grid<T> {
@@ -56,6 +78,15 @@ export class Grid<T> {
         return this.grid
             .map((row) => row.map((cell) => cell === null ? '_' : cell).join('') + '\n')
             .join('');
+    }
+
+    protected checkBounds(x: number, y: number) {
+        if (x < 0 || x >= this.width) {
+            throw 'x out of bounds';
+        }
+        if (y < 0 || y >= this.height) {
+            throw 'y out of bounds';
+        }
     }
 
 }

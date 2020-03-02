@@ -48,6 +48,32 @@ describe("Grid", () => {
         expect(grid.toArray()).to.deep.equal([[1, 2], [3, 4]]);
     });
 
+
+    it("getGridNeighbours works", () => {
+        /*
+         * 1 0
+         * 0 0
+         */
+
+        let grid: Grid<number> = new Grid(2, 2);
+        grid = grid.fromArray([[1, 0], [0, 0]]);
+
+        const neighbours = grid.getGridNeighbours(1, 0);
+
+        const expected = {
+            top: null,
+            right: null,
+            bottom: 0,
+            left: 1,
+            topRight: null,
+            bottomRight: null,
+            bottomLeft: 0,
+            topLeft: null,
+        };
+
+        expect(neighbours).to.deep.equal(expected);
+    });
+
     it("is immutable", () => {
         const grid: Grid<number> = new Grid(3, 3);
 

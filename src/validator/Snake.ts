@@ -18,9 +18,9 @@ export class Snake {
 
         for (let x = 0; x < puzzle.width; x++) {
             for (let y = 0; y < puzzle.height; y++) {
-                if (grid[y][x] === GridCell.SNAKE) {
+                if (grid.get(x, y) === GridCell.SNAKE) {
                     totalNumberOfSnakeCells++;
-                    const neighbours = puzzle.getGridNeighbours(grid, x, y);
+                    const neighbours = puzzle.getGrid().getGridNeighbours(x, y);
                     const countSnakeAdjacentSegments = puzzle.countSnakeAdjacentSegments(neighbours);
                     if (countSnakeAdjacentSegments === 0) {
                         // orphan snake segment
