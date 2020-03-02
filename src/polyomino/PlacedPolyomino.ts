@@ -5,11 +5,13 @@ import { Bounds } from './Bounds';
 export class PlacedPolyomino {
 
 	protected absolutePoints;
+	readonly size: number;
 
 	constructor(public polyomino: Polyomino, public x: number, public y: number) {
 		this.polyomino = polyomino;
 		this.x = x;
 		this.y = y;
+		this.size = this.polyomino.points.size;
 	}
 
 	public getBounds(): Bounds {
