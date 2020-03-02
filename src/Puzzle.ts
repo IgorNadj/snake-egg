@@ -1,6 +1,6 @@
-import {Polyomino, PointInt} from 'polyomino';
-import {Set} from 'immutable';
-import {PlacedPolyomino} from './polyomino/PlacedPolyomino';
+import { Polyomino, PointInt } from 'polyomino';
+import { Set } from 'immutable';
+import { PlacedPolyomino } from './polyomino/PlacedPolyomino';
 import { Snake } from './validator/Snake';
 import { PolyominosInBounds } from './validator/PolyominosInBounds';
 import { PolyominosOverlap } from './validator/PolyominosOverlap';
@@ -8,76 +8,76 @@ import { PolyominosOverlap } from './validator/PolyominosOverlap';
 
 export type Grid = GridCell[][];
 
-export enum GridCell { 
-    SNAKE = ".", 
+export enum GridCell {
+    SNAKE = ".",
     POLY = "P"
 };
 
 export type Neighbours = {
-	top: GridCell | null,
-	right: GridCell | null,
-	bottom: GridCell | null,
-	left: GridCell | null,
-	topRight: GridCell | null,
-	bottomRight: GridCell | null,
-	bottomLeft: GridCell | null,
-	topLeft: GridCell | null,
+    top: GridCell | null,
+    right: GridCell | null,
+    bottom: GridCell | null,
+    left: GridCell | null,
+    topRight: GridCell | null,
+    bottomRight: GridCell | null,
+    bottomLeft: GridCell | null,
+    topLeft: GridCell | null,
 }
 
 export enum SnakeDirection {
     top = "top",
     right = "right",
-    bottom = "bottom", 
+    bottom = "bottom",
     left = "left",
 };
 
 export class Puzzle {
 
-	readonly placedPolyominos: Set<PlacedPolyomino>;
-	protected grid: Grid = null;
+    readonly placedPolyominos: Set<PlacedPolyomino>;
+    protected grid: Grid = null;
 
-	constructor(readonly width: number, readonly height: number, readonly maxNumber: number, placedPolyominos: Set<PlacedPolyomino> | null = null) {
-		this.placedPolyominos = placedPolyominos ? placedPolyominos : Set();
-	}
+    constructor(readonly width: number, readonly height: number, readonly maxNumber: number, placedPolyominos: Set<PlacedPolyomino> | null = null) {
+        this.placedPolyominos = placedPolyominos ? placedPolyominos : Set();
+    }
 
-	public isSnakeValid(): boolean {
-		return ;
-	}
+    public isSnakeValid(): boolean {
+        return;
+    }
 
-	public isValid(): boolean {
-		if (!PolyominosInBounds.isValid(this)) return false;
-		if (!PolyominosOverlap.isValid(this)) return false;
-		if (!Snake.isValid(this)) return false;
-		return true;
-	}
+    public isValid(): boolean {
+        if (!PolyominosInBounds.isValid(this)) return false;
+        if (!PolyominosOverlap.isValid(this)) return false;
+        if (!Snake.isValid(this)) return false;
+        return true;
+    }
 
-	public getGrid(): Grid {
-		// lazy-evaluate, and cache for performace
-		if (this.grid === null) {
-			const grid = Array(this.height).fill(null).map(() => Array(this.width).fill(GridCell.SNAKE));
-			this.placedPolyominos.forEach((poly) => {
-				poly.getAbsolutePoints().forEach((point) => {
-					grid[point.y][point.x] = GridCell.POLY;
-				});
-			});
-			this.grid = grid;
-		}
+    public getGrid(): Grid {
+        // lazy-evaluate, and cache for performace
+        if (this.grid === null) {
+            const grid = Array(this.height).fill(null).map(() => Array(this.width).fill(GridCell.SNAKE));
+            this.placedPolyominos.forEach((poly) => {
+                poly.getAbsolutePoints().forEach((point) => {
+                    grid[point.y][point.x] = GridCell.POLY;
+                });
+            });
+            this.grid = grid;
+        }
         return this.grid;
     }
 
     public getGridNeighbours(grid: Grid, x: number, y: number): Neighbours {
         return {
-            top:    y <= 0              ? null : grid[y-1][x],
-            right:  x >= this.width -1  ? null : grid[y][x+1],
-            bottom: y >= this.height -1 ? null : grid[y+1][x],
-			left:   x <= 0              ? null : grid[y][x-1],
-			topRight:    y <= 0 || x >= this.width - 1               ? null : grid[y-1][x+1],
-			bottomRight: y >= this.height - 1 || x >= this.width - 1 ? null : grid[y+1][x+1],
-			bottomLeft:  y >= this.height - 1 || x <= 0              ? null : grid[y+1][x-1],
-			topLeft:     y <= 0 || x <= 0                            ? null : grid[y-1][x-1],
+            top: y <= 0 ? null : grid[y - 1][x],
+            right: x >= this.width - 1 ? null : grid[y][x + 1],
+            bottom: y >= this.height - 1 ? null : grid[y + 1][x],
+            left: x <= 0 ? null : grid[y][x - 1],
+            topRight: y <= 0 || x >= this.width - 1 ? null : grid[y - 1][x + 1],
+            bottomRight: y >= this.height - 1 || x >= this.width - 1 ? null : grid[y + 1][x + 1],
+            bottomLeft: y >= this.height - 1 || x <= 0 ? null : grid[y + 1][x - 1],
+            topLeft: y <= 0 || x <= 0 ? null : grid[y - 1][x - 1],
         };
-	}
-	
+    }
+
     public countSnakeAdjacentSegments(neighbours: Neighbours): number {
         let count = 0;
         if (neighbours.top === GridCell.SNAKE) count++;
@@ -97,7 +97,7 @@ export class Puzzle {
 
     /**
      * Warning: make sure you do a start from a head/tail, rather than a looping snake, to avoid infinite loop regression
-     */ 
+     */
     public getSnakeLength(currentPos: PointInt, comingFromDirection: SnakeDirection = null): number {
         const neighbours = this.getGridNeighbours(this.getGrid(), currentPos.x, currentPos.y);
         for (let direction of Object.keys(SnakeDirection)) {
@@ -110,10 +110,10 @@ export class Puzzle {
                     return 1 + this.getSnakeLength(new PointInt(currentPos.x, currentPos.y - 1), SnakeDirection.bottom);
                 }
                 if (direction === SnakeDirection.right) {
-					return 1 + this.getSnakeLength(new PointInt(currentPos.x + 1, currentPos.y), SnakeDirection.left);
+                    return 1 + this.getSnakeLength(new PointInt(currentPos.x + 1, currentPos.y), SnakeDirection.left);
                 }
                 if (direction === SnakeDirection.bottom) {
-					return 1 + this.getSnakeLength(new PointInt(currentPos.x, currentPos.y + 1), SnakeDirection.top);
+                    return 1 + this.getSnakeLength(new PointInt(currentPos.x, currentPos.y + 1), SnakeDirection.top);
                 }
                 if (direction === SnakeDirection.left) {
                     return 1 + this.getSnakeLength(new PointInt(currentPos.x - 1, currentPos.y), SnakeDirection.right);
@@ -124,16 +124,16 @@ export class Puzzle {
         return 1;
     }
 
-	public render(): string {
+    public render(): string {
         const renderedGrid: string[][] = Array(this.height).fill(null).map(() => Array(this.width).fill(GridCell.SNAKE));
-		const grid = this.getGrid();
-		this.placedPolyominos.forEach((poly) => {
-			poly.getAbsolutePoints().forEach((point) => {
-				renderedGrid[point.y][point.x] = '' + poly.polyomino.points.size;
-			});
-		});
-		return renderedGrid.map((row) => row.join('') + '\n')
-			.join('');
-	}
+        const grid = this.getGrid();
+        this.placedPolyominos.forEach((poly) => {
+            poly.getAbsolutePoints().forEach((point) => {
+                renderedGrid[point.y][point.x] = '' + poly.polyomino.points.size;
+            });
+        });
+        return renderedGrid.map((row) => row.join('') + '\n')
+            .join('');
+    }
 
 }

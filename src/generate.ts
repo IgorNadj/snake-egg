@@ -1,5 +1,5 @@
-import {Generator} from './generator/Generator';
-import {writeFile} from "fs";
+import { Generator } from './generator/Generator';
+import { writeFile } from "fs";
 
 const generator = new Generator();
 

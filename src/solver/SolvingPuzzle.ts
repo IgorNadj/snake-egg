@@ -9,14 +9,14 @@ export class SolvingPuzzle extends HintedPuzzle {
 
     readonly solveGrid: Grid;
 
-	constructor(readonly width: number, readonly height: number, readonly maxNumber: number, placedPolyominos: Set<PlacedPolyomino> | null = null, solveGrid: Grid | null = null) {
+    constructor(readonly width: number, readonly height: number, readonly maxNumber: number, placedPolyominos: Set<PlacedPolyomino> | null = null, solveGrid: Grid | null = null) {
         super(width, height, maxNumber, placedPolyominos);
         if (solveGrid) {
             this.solveGrid = solveGrid;
         } else {
-			this.solveGrid = Array(this.height).fill(null).map(() => Array(this.width).fill(null));
+            this.solveGrid = Array(this.height).fill(null).map(() => Array(this.width).fill(null));
         }
-	}
+    }
 
     public setSolveGrid(solveGrid: Grid): SolvingPuzzle {
         return new SolvingPuzzle(this.width, this.height, this.maxNumber, this.placedPolyominos, solveGrid)
@@ -30,8 +30,8 @@ export class SolvingPuzzle extends HintedPuzzle {
     }
 
     public renderSolving(): string {
-		return '\n' + this.solveGrid.map((row) => row.map((cell) => cell === null ? '_' : cell).join('') + '\n')
-			.join('');
+        return '\n' + this.solveGrid.map((row) => row.map((cell) => cell === null ? '_' : cell).join('') + '\n')
+            .join('');
     }
 
 }

@@ -3,9 +3,9 @@ import { SolvingPuzzle } from "../SolvingPuzzle";
 import { GridCell } from "../../Puzzle";
 
 export class MarkAdjacentToSnake implements SolveStep {
-    
+
     public solveStep(puzzle: SolvingPuzzle): void {
-        
+
         for (let x = 0; x < puzzle.width; x++) {
             for (let y = 0; y < puzzle.height; y++) {
                 const solveNeighbours = puzzle.getGridNeighbours(puzzle.solveGrid, x, y);
@@ -17,7 +17,7 @@ export class MarkAdjacentToSnake implements SolveStep {
                     // this is not the head/tail of the snake, don't need to worry about it
                     continue;
                 }
-                
+
                 if (solveNeighbours.top === GridCell.SNAKE) {
                     // we came from above, topRight and topLeft must be POLY
                     puzzle.solve(x - 1, y - 1, GridCell.POLY);

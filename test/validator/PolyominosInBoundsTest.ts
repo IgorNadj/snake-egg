@@ -1,5 +1,5 @@
-import {expect} from 'chai';
-import {Polyomino} from 'polyomino';
+import { expect } from 'chai';
+import { Polyomino } from 'polyomino';
 import { GeneratingPuzzle } from '../../src/generator/GeneratingPuzzle';
 import { PolyominosInBounds } from '../../src/validator/PolyominosInBounds';
 

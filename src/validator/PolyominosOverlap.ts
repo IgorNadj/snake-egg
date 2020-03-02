@@ -1,12 +1,12 @@
-import {PointInt} from 'polyomino';
+import { PointInt } from 'polyomino';
 import { Puzzle } from '../Puzzle';
 
 
 export class PolyominosOverlap {
 
 	public static isValid(puzzle: Puzzle): boolean {
-		
-		if (puzzle.placedPolyominos.size <= 1){ 
+
+		if (puzzle.placedPolyominos.size <= 1) {
 			return true;
 		}
 
@@ -16,7 +16,7 @@ export class PolyominosOverlap {
 			for (let k = j + 1; k < setArray.length; k++) {
 				const poly1 = setArray[j];
 				const poly2 = setArray[k];
-				
+
 				let anyPointsTouch = false;
 				poly1.getAbsolutePoints().forEach((p1) => {
 					poly2.getAbsolutePoints().forEach((p2) => {
@@ -40,10 +40,10 @@ export class PolyominosOverlap {
 			return true;
 		}
 		if (p1.x === p2.x) {
-			if (Math.abs(p1.y - p2.y) <=1) return true;
+			if (Math.abs(p1.y - p2.y) <= 1) return true;
 		}
 		if (p1.y === p2.y) {
-			if (Math.abs(p1.x - p2.x) <=1) return true;
+			if (Math.abs(p1.x - p2.x) <= 1) return true;
 		}
 		return false;
 	}

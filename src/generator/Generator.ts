@@ -1,7 +1,7 @@
-import {Polyomino} from "polyomino";
-import {Set} from 'immutable';
-import {GeneratingPuzzle} from './GeneratingPuzzle';
-import {Puzzle} from '../Puzzle';
+import { Polyomino } from "polyomino";
+import { Set } from 'immutable';
+import { GeneratingPuzzle } from './GeneratingPuzzle';
+import { Puzzle } from '../Puzzle';
 
 
 // TODO:
@@ -52,7 +52,7 @@ export class Generator {
 		// (then don't need an explicit stack, because we have closures)
 
 		const initialPuzzle = new GeneratingPuzzle(width, height, maxNumber);
-		
+
 		const puzzles = this.addPolyOfSize(initialPuzzle, maxNumber, Set());
 
 		console.log('Found ' + puzzles.size + ' puzzles!');
@@ -62,14 +62,14 @@ export class Generator {
 		console.log('Tried ' + this.countValidPolyPlacements + ' valid poly placements');
 
 		console.log('Done');
-		
+
 	}
 
 
 
 	protected addPolyOfSize(puzzle: GeneratingPuzzle, size: number, currentValidPuzzles: Set<GeneratingPuzzle>): Set<GeneratingPuzzle> {
 		if (size < 1) {
-			throw 'should have exited';	
+			throw 'should have exited';
 		}
 
 
@@ -90,7 +90,7 @@ export class Generator {
 
 				if (size === puzzle.maxNumber) {
 					console.log('Progress on biggest poly: ' + this.numberBiggestPolyDone + ' / ' + this.numberOfBiggestPoly);
-					console.log('Progress on variants: ' + (variantNum+1) + ' / ' + variants.size);
+					console.log('Progress on variants: ' + (variantNum + 1) + ' / ' + variants.size);
 				}
 				variantNum++;
 
@@ -125,10 +125,10 @@ export class Generator {
 							} else {
 								// valid so far, but haven't placed all, recurse down
 								const childValidPuzzles = this.addPolyOfSize(newPuzzle, size - 1, currentValidPuzzles)
-							
+
 								currentValidPuzzles = currentValidPuzzles.merge(childValidPuzzles);
 							}
-							
+
 						}
 						// 1.2. if not valid, choose next space
 					}

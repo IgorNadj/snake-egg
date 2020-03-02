@@ -8,5 +8,5 @@ import { Puzzle } from "../Puzzle";
 export class HintedPuzzle extends Puzzle {
 
     public hints: number[][] = [];
-    
+
 }

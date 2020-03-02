@@ -26,17 +26,17 @@ describe("MarkAdjacentToSnake", () => {
     */
     let puzzle = new SolvingPuzzle(5, 4, 5);
     puzzle = puzzle.setSolveGrid([
-        [null, null, null, null, null],
-        [null, null, GridCell.SNAKE, null, null],
-        [null, null, GridCell.SNAKE, null, null],
-        [null, GridCell.POLY, GridCell.SNAKE, GridCell.POLY, null],
+      [null, null, null, null, null],
+      [null, null, GridCell.SNAKE, null, null],
+      [null, null, GridCell.SNAKE, null, null],
+      [null, GridCell.POLY, GridCell.SNAKE, GridCell.POLY, null],
     ]);
 
     const expectedSolveGrid = [
-        [null, null, null, null, null],
-        [null, null, GridCell.SNAKE, null, null],
-        [null, GridCell.POLY, GridCell.SNAKE, GridCell.POLY, null],
-        [null, GridCell.POLY, GridCell.SNAKE, GridCell.POLY, null],
+      [null, null, null, null, null],
+      [null, null, GridCell.SNAKE, null, null],
+      [null, GridCell.POLY, GridCell.SNAKE, GridCell.POLY, null],
+      [null, GridCell.POLY, GridCell.SNAKE, GridCell.POLY, null],
     ];
 
     const step = new MarkAdjacentToSnake();
@@ -62,15 +62,15 @@ describe("MarkAdjacentToSnake", () => {
     */
     let puzzle = new SolvingPuzzle(5, 3, 5);
     puzzle = puzzle.setSolveGrid([
-        [null, null, null, null, null],
-        [GridCell.POLY, GridCell.POLY, GridCell.SNAKE, null, null],
-        [GridCell.SNAKE, GridCell.SNAKE, GridCell.SNAKE, null, null],
+      [null, null, null, null, null],
+      [GridCell.POLY, GridCell.POLY, GridCell.SNAKE, null, null],
+      [GridCell.SNAKE, GridCell.SNAKE, GridCell.SNAKE, null, null],
     ]);
 
     const expectedSolveGrid = [
-        [null, null, null, null, null],
-        [GridCell.POLY, GridCell.POLY, GridCell.SNAKE, null, null],
-        [GridCell.SNAKE, GridCell.SNAKE, GridCell.SNAKE, GridCell.POLY, null],
+      [null, null, null, null, null],
+      [GridCell.POLY, GridCell.POLY, GridCell.SNAKE, null, null],
+      [GridCell.SNAKE, GridCell.SNAKE, GridCell.SNAKE, GridCell.POLY, null],
     ];
 
     const step = new MarkAdjacentToSnake();

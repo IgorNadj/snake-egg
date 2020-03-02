@@ -16,7 +16,7 @@ class HumanSolver {
 
 
 
-        return new Puzzle(hintedPuzzle.width, hintedPuzzle.height, hintedPuzzle.maxNumber); 
+        return new Puzzle(hintedPuzzle.width, hintedPuzzle.height, hintedPuzzle.maxNumber);
     }
 
 }

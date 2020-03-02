@@ -1,9 +1,9 @@
-import {Polyomino, PointInt} from 'polyomino';
-import {Set} from 'immutable';
-import {Bounds} from './Bounds';
+import { Polyomino, PointInt } from 'polyomino';
+import { Set } from 'immutable';
+import { Bounds } from './Bounds';
 
 export class PlacedPolyomino {
-	
+
 	protected absolutePoints;
 
 	constructor(public polyomino: Polyomino, public x: number, public y: number) {
@@ -13,10 +13,10 @@ export class PlacedPolyomino {
 	}
 
 	public getBounds(): Bounds {
-		const top    = <number> this.getAbsolutePoints().reduce((minY, point) => point.y < minY ? point.y : minY, 0);
-		const right  = <number> this.getAbsolutePoints().reduce((maxX, point) => point.x > maxX ? point.x : maxX, 0);
-		const bottom = <number> this.getAbsolutePoints().reduce((maxY, point) => point.y > maxY ? point.y : maxY, 0);
-		const left   = <number> this.getAbsolutePoints().reduce((minX, point) => point.x < minX ? point.x : minX, 0);
+		const top = <number>this.getAbsolutePoints().reduce((minY, point) => point.y < minY ? point.y : minY, 0);
+		const right = <number>this.getAbsolutePoints().reduce((maxX, point) => point.x > maxX ? point.x : maxX, 0);
+		const bottom = <number>this.getAbsolutePoints().reduce((maxY, point) => point.y > maxY ? point.y : maxY, 0);
+		const left = <number>this.getAbsolutePoints().reduce((minX, point) => point.x < minX ? point.x : minX, 0);
 		return new Bounds(top, right, bottom, left);
 	}
 

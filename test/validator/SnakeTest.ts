@@ -51,7 +51,7 @@ describe("Snake", () => {
          * 2 . .
          */
         const puzzle2 = fillCells([
-            [0, 0], 
+            [0, 0],
             [0, 1],
         ], 3, 2);
         expect(Snake.isValid(puzzle2)).to.equal(false);
@@ -94,7 +94,7 @@ describe("Snake", () => {
             [1, 2], [2, 2],
         ], 3, 3);
         expect(Snake.isValid(puzzle2)).to.equal(false);
-        
+
     });
 
     it("disallows looping snake", () => {
@@ -104,7 +104,7 @@ describe("Snake", () => {
          * . . .
          */
         const puzzle = fillCells([
-            [1, 1], 
+            [1, 1],
         ], 3, 3);
         expect(Snake.isValid(puzzle)).to.equal(false);
     });
@@ -120,7 +120,7 @@ describe("Snake", () => {
          * . . .
          */
         const puzzle = fillCells([
-            [1, 1], 
+            [1, 1],
             [0, 3], [1, 3], [2, 3],
             [1, 5],
         ], 3, 7);

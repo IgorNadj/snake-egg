@@ -87,7 +87,7 @@ describe("Puzzle", () => {
     let placedPolyominos: Set<PlacedPolyomino> = Set();
 
     polyPlacements.forEach((placement) => {
-        placedPolyominos = placedPolyominos.add(new PlacedPolyomino(poly, placement[0], placement[1]))
+      placedPolyominos = placedPolyominos.add(new PlacedPolyomino(poly, placement[0], placement[1]))
     });
 
     return new Puzzle(width, height, maxNum, placedPolyominos);

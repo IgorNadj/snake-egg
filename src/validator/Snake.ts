@@ -71,7 +71,7 @@ export class Snake {
          *
          * To detect this, we pick a snake head, traverse until we find the tail, and make sure how
          * far we've traversed equals how many snake segments there are in the puzzle
-         */ 
+         */
         const snakeLength = puzzle.getSnakeLength(validSnakeEnds.first());
         if (snakeLength !== totalNumberOfSnakeCells) {
             return false;
