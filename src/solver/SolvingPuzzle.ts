@@ -1,7 +1,5 @@
 import { HintedPuzzle } from "../hinter/HintedPuzzle";
 import { GridCell } from "../Puzzle";
-import { PlacedPolyomino } from "../polyomino/PlacedPolyomino";
-import { Set } from "immutable";
 import { Grid } from "../Grid";
 
 
@@ -12,8 +10,8 @@ export class SolvingPuzzle extends HintedPuzzle {
 
     protected solveGrid: Grid<GridCell>;
 
-    constructor(readonly width: number, readonly height: number, readonly maxNumber: number, placedPolyominos: Set<PlacedPolyomino> | null = null, solveGrid: Grid<GridCell> | null = null) {
-        super(width, height, maxNumber, placedPolyominos);
+    constructor(readonly width: number, readonly height: number, readonly maxNumber: number, solveGrid: Grid<GridCell> | null = null) {
+        super(width, height, maxNumber);
         if (solveGrid) {
             this.solveGrid = solveGrid;
         } else {
@@ -26,7 +24,7 @@ export class SolvingPuzzle extends HintedPuzzle {
     }
 
     public setSolveGrid(solveGrid: Grid<GridCell>): SolvingPuzzle {
-        return new SolvingPuzzle(this.width, this.height, this.maxNumber, this.placedPolyominos, solveGrid)
+        return new SolvingPuzzle(this.width, this.height, this.maxNumber, solveGrid)
     }
 
     public solve(x: number, y: number, contents: GridCell) {

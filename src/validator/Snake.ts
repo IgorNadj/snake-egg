@@ -21,7 +21,7 @@ export class Snake {
                 if (grid.get(x, y) === GridCell.SNAKE) {
                     totalNumberOfSnakeCells++;
                     const neighbours = puzzle.getGrid().getGridNeighbours(x, y);
-                    const countSnakeAdjacentSegments = puzzle.countSnakeAdjacentSegments(neighbours);
+                    const countSnakeAdjacentSegments = Puzzle.countSnakeAdjacentSegments(neighbours);
                     if (countSnakeAdjacentSegments === 0) {
                         // orphan snake segment
                         return false;
@@ -42,7 +42,7 @@ export class Snake {
                         //
                         // if we are centered on bottom left, then top right must not be snake
                         //
-                        if (puzzle.snakeLoopsImmediately(neighbours)) {
+                        if (Puzzle.snakeLoopsImmediately(neighbours)) {
                             return false;
                         }
                     }

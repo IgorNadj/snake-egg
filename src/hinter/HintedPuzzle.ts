@@ -8,17 +8,16 @@ export type HintCell = number | null;
  * A hinted puzzle is one that is ready for a human to play, it is mostly blank and has
  * some cells in the grid already filled in to give hints to the human 
  */
-export class HintedPuzzle extends Puzzle {
+export class HintedPuzzle {
 
     protected hintGrid: Grid<HintCell>;
 
-    constructor(puzzle: Puzzle) {
-        super(puzzle.width, puzzle.height, puzzle.maxNumber, puzzle.placedPolyominos);
-        this.hintGrid = new Grid(puzzle.width, puzzle.height);
+    constructor(readonly width: number, readonly height: number, readonly maxNumber: number) {
+        this.hintGrid = new Grid(width, height);
     }
 
     public static createWithAllHints(puzzle: Puzzle): HintedPuzzle {
-        const hinted = new HintedPuzzle(puzzle);
+        const hinted = new HintedPuzzle(puzzle.width, puzzle.height, puzzle.maxNumber);
         let hintGrid: Grid<HintCell> = new Grid(puzzle.width, puzzle.height);
         puzzle.placedPolyominos.forEach((poly) => {
             poly.getAbsolutePoints().forEach((point) => {

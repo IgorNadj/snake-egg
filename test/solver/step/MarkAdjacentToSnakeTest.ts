@@ -34,7 +34,7 @@ describe("MarkAdjacentToSnake", () => {
       [null, GridCell.POLY, GridCell.SNAKE, GridCell.POLY, null],
     ]);
 
-    const puzzle = new SolvingPuzzle(5, 4, 5, null, solveGrid);
+    const puzzle = new SolvingPuzzle(5, 4, 5, solveGrid);
 
     const expectedSolveGrid = [
       [null, null, null, null, null],
@@ -72,7 +72,7 @@ describe("MarkAdjacentToSnake", () => {
       [GridCell.SNAKE, GridCell.SNAKE, GridCell.SNAKE, null, null],
     ]);
 
-    const puzzle = new SolvingPuzzle(5, 3, 5, null, solveGrid);
+    const puzzle = new SolvingPuzzle(5, 3, 5, solveGrid);
 
     const expectedSolveGrid = [
       [null, null, null, null, null],

@@ -1,5 +1,6 @@
 import { Puzzle } from "../Puzzle";
-import { HintedPuzzle } from "./HintedPuzzle";
+import { HintedPuzzle, HintCell } from "./HintedPuzzle";
+import { Grid } from "../Grid";
 
 
 export class Hinter {
@@ -12,11 +13,23 @@ export class Hinter {
         //    1.2. If human solver cannot solve it, the parent is a candidate
         // 
         // 2. Pick candidate with fewest hints needed 
-        return new HintedPuzzle(puzzle.width, puzzle.height, puzzle.maxNumber, puzzle.placedPolyominos);
+        return new HintedPuzzle(puzzle.width, puzzle.height, puzzle.maxNumber);
     }
 
     // protected removeHint(hintedPuzzle: HintedPuzzle): HintedPuzzle {
 
     // }
+
+    public static createWithAllHints(puzzle: Puzzle): HintedPuzzle {
+        const hinted = new HintedPuzzle(puzzle.width, puzzle.height, puzzle.maxNumber);
+        let hintGrid: Grid<HintCell> = new Grid(puzzle.width, puzzle.height);
+        puzzle.placedPolyominos.forEach((poly) => {
+            poly.getAbsolutePoints().forEach((point) => {
+                hintGrid = hintGrid.set(point.x, point.y, poly.size);
+            });
+        });
+        hinted.setHintGrid(hintGrid);
+        return hinted;
+    }
 
 }

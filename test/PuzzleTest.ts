@@ -41,7 +41,7 @@ describe("Puzzle", () => {
       topLeft: GridCell.SNAKE,
     }
 
-    expect(puzzle.countSnakeAdjacentSegments(neighbours)).to.equal(2);
+    expect(Puzzle.countSnakeAdjacentSegments(neighbours)).to.equal(2);
   });
 
   it("getSnakeLength works", () => {

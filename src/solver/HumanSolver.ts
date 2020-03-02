@@ -1,10 +1,11 @@
 import { HintedPuzzle } from "../hinter/HintedPuzzle";
 import { Puzzle } from "../Puzzle";
+import { SolvingPuzzle } from "./SolvingPuzzle";
 
 
 class HumanSolver {
 
-    public solve(hintedPuzzle: HintedPuzzle): Puzzle {
+    public solve(hintedPuzzle: HintedPuzzle): SolvingPuzzle {
         // Things to try in order of how complicated they are:
         //   - Mark cells adjacent to snake as poly
         //   - Mark cells adjacent to completed poly as snake
@@ -16,7 +17,7 @@ class HumanSolver {
 
 
 
-        return new Puzzle(hintedPuzzle.width, hintedPuzzle.height, hintedPuzzle.maxNumber);
+        return new SolvingPuzzle(hintedPuzzle.width, hintedPuzzle.height, hintedPuzzle.maxNumber);
     }
 
 }

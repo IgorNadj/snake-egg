@@ -58,7 +58,7 @@ export class Puzzle {
         return this.grid;
     }
 
-    public countSnakeAdjacentSegments(neighbours: Neighbours<GridCell>): number {
+    public static countSnakeAdjacentSegments(neighbours: Neighbours<GridCell>): number {
         let count = 0;
         if (neighbours.top === GridCell.SNAKE) count++;
         if (neighbours.right === GridCell.SNAKE) count++;
@@ -67,7 +67,7 @@ export class Puzzle {
         return count;
     }
 
-    public snakeLoopsImmediately(neighbours: Neighbours<GridCell>): boolean {
+    public static snakeLoopsImmediately(neighbours: Neighbours<GridCell>): boolean {
         if (neighbours.top === GridCell.SNAKE && neighbours.right === GridCell.SNAKE && neighbours.topRight === GridCell.SNAKE) return true;
         if (neighbours.right === GridCell.SNAKE && neighbours.bottom === GridCell.SNAKE && neighbours.bottomRight === GridCell.SNAKE) return true;
         if (neighbours.bottom === GridCell.SNAKE && neighbours.left === GridCell.SNAKE && neighbours.bottomLeft === GridCell.SNAKE) return true;
