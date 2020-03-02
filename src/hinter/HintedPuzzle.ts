@@ -1,5 +1,8 @@
-import { Puzzle } from "../Puzzle";
+import { Puzzle, GridCell } from "../Puzzle";
+import { Grid } from "../Grid";
 
+
+export type HintCell = number | null;
 
 /**
  * A hinted puzzle is one that is ready for a human to play, it is mostly blank and has
@@ -7,6 +10,31 @@ import { Puzzle } from "../Puzzle";
  */
 export class HintedPuzzle extends Puzzle {
 
-    public hints: number[][] = [];
+    protected hintGrid: Grid<HintCell>;
+
+    constructor(puzzle: Puzzle) {
+        super(puzzle.width, puzzle.height, puzzle.maxNumber, puzzle.placedPolyominos);
+        this.hintGrid = new Grid(puzzle.width, puzzle.height);
+    }
+
+    public static createWithAllHints(puzzle: Puzzle): HintedPuzzle {
+        const hinted = new HintedPuzzle(puzzle);
+        let hintGrid: Grid<HintCell> = new Grid(puzzle.width, puzzle.height);
+        puzzle.placedPolyominos.forEach((poly) => {
+            poly.getAbsolutePoints().forEach((point) => {
+                hintGrid = hintGrid.set(point.x, point.y, poly.size);
+            });
+        });
+        hinted.hintGrid = hintGrid;
+        return hinted;
+    }
+
+    public setHintGrid(grid: Grid<HintCell>) {
+        this.hintGrid = grid;
+    }
+
+    public getHintGrid(): Grid<HintCell> {
+        return this.hintGrid;
+    }
 
 }
