@@ -10,7 +10,7 @@ export class SolvingPuzzle extends HintedPuzzle {
 
     protected solveGrid: Grid<GridCell>;
 
-    constructor(readonly width: number, readonly height: number, readonly maxNumber: number, solveGrid: Grid<GridCell> | null = null) {
+    constructor(readonly width: number, readonly height: number, readonly maxNumber: number, solveGrid?: Grid<GridCell>) {
         super(width, height, maxNumber);
         if (solveGrid) {
             this.solveGrid = solveGrid;
@@ -24,7 +24,7 @@ export class SolvingPuzzle extends HintedPuzzle {
     }
 
     public setSolveGrid(solveGrid: Grid<GridCell>): SolvingPuzzle {
-        return new SolvingPuzzle(this.width, this.height, this.maxNumber, solveGrid)
+        return new SolvingPuzzle(this.width, this.height, this.maxNumber, solveGrid);
     }
 
     public solve(x: number, y: number, contents: GridCell): SolvingPuzzle {
