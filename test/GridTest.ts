@@ -74,6 +74,14 @@ describe("Grid", () => {
         expect(neighbours).to.deep.equal(expected);
     });
 
+    it("count works", () => {
+        let grid: Grid<number> = new Grid(2, 2);
+
+        grid = grid.fromArray([[1, 2], [2, 2]]);
+
+        expect(grid.count(2)).to.equal(3);
+    });
+
     it("is immutable", () => {
         const grid: Grid<number> = new Grid(3, 3);
 

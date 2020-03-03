@@ -56,6 +56,18 @@ export class Grid<T> {
         };
     }
 
+    public count(havingValue: T): number {
+        let count: number = 0;
+        for (let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+                if (this.grid[y][x] === havingValue) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
     public fromArray(array: T[][]): Grid<T> {
         if (array.length != this.height) {
             throw 'Height mismatch';
