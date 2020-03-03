@@ -9,8 +9,12 @@
     "declaration": true,
     "sourceMap": true,
     "inlineSources": true,
-    "types": ["node", "mocha"],
-    "stripInternal": true
+    "types": [
+      "node",
+      "mocha"
+    ],
+    "stripInternal": true,
+    "strictNullChecks": true
   },
   "include": [
     "src/**/*"

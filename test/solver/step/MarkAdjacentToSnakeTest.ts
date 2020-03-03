@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { GridCell } from '../../../src/Puzzle';
-import { SolvingPuzzle } from "../../../src/solver/SolvingPuzzle";
+import { SolvingPuzzle, SolveCell } from "../../../src/solver/SolvingPuzzle";
 import { MarkAdjacentToSnake } from '../../../src/solver/step/MarkAdjacentToSnake';
 import { Grid } from '../../../src/Grid';
 import { HintedPuzzle } from '../../../src/hinter/HintedPuzzle';
@@ -24,7 +24,7 @@ describe("MarkAdjacentToSnake", () => {
     *   _ P . P _
     *   _ P . P _
     */
-    let solveGrid: Grid<GridCell> = new Grid(5, 4);
+    let solveGrid: Grid<SolveCell> = new Grid(5, 4);
 
     solveGrid = solveGrid.fromArray([
       [null, null, null, null, null],
@@ -63,7 +63,7 @@ describe("MarkAdjacentToSnake", () => {
     *   P P . _ _
     *   . . . P _
     */
-    let solveGrid: Grid<GridCell> = new Grid(5, 3);
+    let solveGrid: Grid<SolveCell> = new Grid(5, 3);
 
     solveGrid = solveGrid.fromArray([
       [null, null, null, null, null],

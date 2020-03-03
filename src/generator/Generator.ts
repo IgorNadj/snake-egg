@@ -151,8 +151,20 @@ export class Generator {
 		let variants: Set<Polyomino> = Set();
 		// @ts-ignore
 		polyomino.rotations().forEach(rotation => {
+			if (rotation === null || rotation === undefined) {
+				// strict null checks for imported class
+				return;
+			}
 			const reflections = rotation.reflections();
+			if (reflections === null || reflections === undefined) {
+				// strict null checks for imported class
+				return;
+			}
 			reflections.forEach(reflection => {
+				if (reflection === null || reflection === undefined) {
+					// strict null checks for imported class
+					return;
+				}
 				variants = variants.add(reflection);
 			});
 		})

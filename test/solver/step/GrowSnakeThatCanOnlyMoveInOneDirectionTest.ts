@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { Grid } from '../../../src/Grid';
 import { GridCell } from '../../../src/Puzzle';
-import { SolvingPuzzle } from '../../../src/solver/SolvingPuzzle';
+import { SolvingPuzzle, SolveCell } from '../../../src/solver/SolvingPuzzle';
 import { GrowSnakeThatCanOnlyMoveInOneDirection } from '../../../src/solver/step/GrowSnakeThatCanOnlyMoveInOneValidDirection';
 import { HintedPuzzle } from '../../../src/hinter/HintedPuzzle';
 
@@ -25,7 +25,7 @@ describe("GrowSnakeThatCanOnlyMoveInOneValidDirection", () => {
     *   _ . _ _ _
     * 
     */
-    let solveGrid: Grid<GridCell> = new Grid(5, 4);
+    let solveGrid: Grid<SolveCell> = new Grid(5, 4);
 
     solveGrid = solveGrid.fromArray([
       [null, GridCell.POLY, GridCell.POLY, null, null],

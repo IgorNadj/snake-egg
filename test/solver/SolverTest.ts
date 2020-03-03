@@ -39,7 +39,12 @@ describe("Solver", () => {
         ];
 
         expect(solveResults.hasSolution).to.equal(true);
-        expect(solveResults.solution.getSolveGrid().toArray()).to.deep.equal(expectedSolveGrid);
+        if (solveResults.hasSolution) {
+            expect(solveResults.solution).to.not.equal(null);
+            if (solveResults.solution !== null && solveResults.solution !== undefined) {
+                expect(solveResults.solution.getSolveGrid().toArray()).to.deep.equal(expectedSolveGrid);
+            }
+        }
     });
 
     // it.skip("can solve a moderately complicated puzzle", () => {

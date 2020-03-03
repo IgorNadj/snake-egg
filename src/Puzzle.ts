@@ -16,9 +16,9 @@ export enum GridCell {
 export class Puzzle {
 
     readonly placedPolyominos: Set<PlacedPolyomino>;
-    protected grid: Grid<GridCell> = null;
+    protected grid: Grid<GridCell>;
 
-    constructor(readonly width: number, readonly height: number, readonly maxNumber: number, placedPolyominos: Set<PlacedPolyomino> | null = null) {
+    constructor(readonly width: number, readonly height: number, readonly maxNumber: number, placedPolyominos?: Set<PlacedPolyomino>) {
         this.placedPolyominos = placedPolyominos ? placedPolyominos : Set();
     }
 
@@ -31,7 +31,7 @@ export class Puzzle {
 
     public getGrid(): Grid<GridCell> {
         // lazy-evaluate, and cache for performace
-        if (this.grid === null) {
+        if (this.grid === undefined) {
             let grid: Grid<GridCell> = new Grid(this.width, this.height);
             grid = grid.setAll(GridCell.SNAKE);
             this.placedPolyominos.forEach((poly) => {

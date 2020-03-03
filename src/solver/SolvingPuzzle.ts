@@ -3,7 +3,7 @@ import { GridCell } from "../Puzzle";
 import { Grid } from "../Grid";
 
 
-export type SolveCell = GridCell | number;
+export type SolveCell = GridCell | number | null;
 
 /**
  * A Solver uses a Solving Puzzle to gradually solve a hinted puzzle.

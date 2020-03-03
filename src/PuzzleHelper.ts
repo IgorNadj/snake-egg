@@ -42,7 +42,7 @@ export class PuzzleHelper {
     /**
      * Warning: make sure you do a start from a head/tail, rather than a looping snake, to avoid infinite loop regression
      */
-    public static getSnakeLength(grid: Grid<any>, currentPos: PointInt, comingFromDirection: SnakeDirection = null): number {
+    public static getSnakeLength(grid: Grid<any>, currentPos: PointInt, comingFromDirection?: SnakeDirection): number {
         const neighbours = grid.getGridNeighbours(currentPos.x, currentPos.y);
         for (let direction of Object.keys(SnakeDirection)) {
             if (direction === comingFromDirection) {
