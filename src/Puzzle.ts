@@ -1,27 +1,17 @@
-import { Polyomino, PointInt } from 'polyomino';
 import { Set } from 'immutable';
 import { PlacedPolyomino } from './polyomino/PlacedPolyomino';
 import { Snake } from './validator/Snake';
 import { PolyominosInBounds } from './validator/PolyominosInBounds';
 import { PolyominosOverlap } from './validator/PolyominosOverlap';
-import { Grid, Neighbours } from "./Grid";
+import { Grid } from "./Grid";
 
 export enum GridCell {
     SNAKE = ".",
     POLY = "P"
 };
 
-export enum SnakeDirection {
-    top = "top",
-    right = "right",
-    bottom = "bottom",
-    left = "left",
-};
-
 /**
- * A puzzle represents a grid of cells, with all cells solved.
- * 
- * A puzzle ready for a human to tackle is called a HintedPuzzle.
+ * A Puzzle is a completely filled grid, and may or may not be valid
  */
 export class Puzzle {
 
@@ -30,10 +20,6 @@ export class Puzzle {
 
     constructor(readonly width: number, readonly height: number, readonly maxNumber: number, placedPolyominos: Set<PlacedPolyomino> | null = null) {
         this.placedPolyominos = placedPolyominos ? placedPolyominos : Set();
-    }
-
-    public isSnakeValid(): boolean {
-        return;
     }
 
     public isValid(): boolean {
@@ -56,73 +42,6 @@ export class Puzzle {
             this.grid = grid;
         }
         return this.grid;
-    }
-
-    public static countSnakeAdjacentSegments(neighbours: Neighbours<GridCell>): number {
-        let count = 0;
-        if (neighbours.top === GridCell.SNAKE) count++;
-        if (neighbours.right === GridCell.SNAKE) count++;
-        if (neighbours.bottom === GridCell.SNAKE) count++;
-        if (neighbours.left === GridCell.SNAKE) count++;
-        return count;
-    }
-
-    public static isSnakeHead(neighbours: Neighbours<GridCell>): boolean {
-        return Puzzle.countSnakeAdjacentSegments(neighbours) <= 1;
-    }
-
-    public static getValidSnakeDirections(neighbours: Neighbours<GridCell>): Set<SnakeDirection> {
-        let directions: Set<SnakeDirection> = Set();
-        if (neighbours.top === null && neighbours.topLeft !== GridCell.SNAKE && neighbours.topRight !== GridCell.SNAKE) {
-            directions = directions.add(SnakeDirection.top);
-        }
-        if (neighbours.right === null && neighbours.topRight !== GridCell.SNAKE && neighbours.bottomRight !== GridCell.SNAKE) {
-            directions = directions.add(SnakeDirection.right);
-        }
-        if (neighbours.bottom === null && neighbours.bottomLeft !== GridCell.SNAKE && neighbours.bottomRight !== GridCell.SNAKE) {
-            directions = directions.add(SnakeDirection.bottom);
-        }
-        if (neighbours.left === null && neighbours.topLeft !== GridCell.SNAKE && neighbours.bottomLeft !== GridCell.SNAKE) {
-            directions = directions.add(SnakeDirection.left);
-        }
-        return directions;
-    }
-
-    public static snakeLoopsImmediately(neighbours: Neighbours<GridCell>): boolean {
-        if (neighbours.top === GridCell.SNAKE && neighbours.right === GridCell.SNAKE && neighbours.topRight === GridCell.SNAKE) return true;
-        if (neighbours.right === GridCell.SNAKE && neighbours.bottom === GridCell.SNAKE && neighbours.bottomRight === GridCell.SNAKE) return true;
-        if (neighbours.bottom === GridCell.SNAKE && neighbours.left === GridCell.SNAKE && neighbours.bottomLeft === GridCell.SNAKE) return true;
-        if (neighbours.left === GridCell.SNAKE && neighbours.top === GridCell.SNAKE && neighbours.topLeft === GridCell.SNAKE) return true;
-        return false;
-    }
-
-    /**
-     * Warning: make sure you do a start from a head/tail, rather than a looping snake, to avoid infinite loop regression
-     */
-    public getSnakeLength(currentPos: PointInt, comingFromDirection: SnakeDirection = null): number {
-        const neighbours = this.getGrid().getGridNeighbours(currentPos.x, currentPos.y);
-        for (let direction of Object.keys(SnakeDirection)) {
-            if (direction === comingFromDirection) {
-                // e.g. left is snake, but we came from the left, so ignore it
-                continue;
-            }
-            if (neighbours[direction] === GridCell.SNAKE) {
-                if (direction === SnakeDirection.top) {
-                    return 1 + this.getSnakeLength(new PointInt(currentPos.x, currentPos.y - 1), SnakeDirection.bottom);
-                }
-                if (direction === SnakeDirection.right) {
-                    return 1 + this.getSnakeLength(new PointInt(currentPos.x + 1, currentPos.y), SnakeDirection.left);
-                }
-                if (direction === SnakeDirection.bottom) {
-                    return 1 + this.getSnakeLength(new PointInt(currentPos.x, currentPos.y + 1), SnakeDirection.top);
-                }
-                if (direction === SnakeDirection.left) {
-                    return 1 + this.getSnakeLength(new PointInt(currentPos.x - 1, currentPos.y), SnakeDirection.right);
-                }
-            }
-        }
-        // No other snake segments adjacent, must have reached the end.
-        return 1;
     }
 
     public render(): string {

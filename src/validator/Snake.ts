@@ -1,6 +1,7 @@
 import { PointInt } from 'polyomino';
 import { Set } from 'immutable';
 import { Puzzle, GridCell } from '../Puzzle';
+import { PuzzleHelper } from "../PuzzleHelper";
 
 
 export class Snake {
@@ -20,8 +21,7 @@ export class Snake {
             for (let y = 0; y < puzzle.height; y++) {
                 if (grid.get(x, y) === GridCell.SNAKE) {
                     totalNumberOfSnakeCells++;
-                    const neighbours = puzzle.getGrid().getGridNeighbours(x, y);
-                    const countSnakeAdjacentSegments = Puzzle.countSnakeAdjacentSegments(neighbours);
+                    const countSnakeAdjacentSegments = PuzzleHelper.countSnakeAdjacentSegments(grid, x, y);
                     if (countSnakeAdjacentSegments === 0) {
                         // orphan snake segment
                         return false;
@@ -42,7 +42,7 @@ export class Snake {
                         //
                         // if we are centered on bottom left, then top right must not be snake
                         //
-                        if (Puzzle.snakeLoopsImmediately(neighbours)) {
+                        if (PuzzleHelper.snakeLoopsImmediately(grid.getGridNeighbours(x, y))) {
                             return false;
                         }
                     }
@@ -72,7 +72,7 @@ export class Snake {
          * To detect this, we pick a snake head, traverse until we find the tail, and make sure how
          * far we've traversed equals how many snake segments there are in the puzzle
          */
-        const snakeLength = puzzle.getSnakeLength(validSnakeEnds.first());
+        const snakeLength = PuzzleHelper.getSnakeLength(grid, validSnakeEnds.first());
         if (snakeLength !== totalNumberOfSnakeCells) {
             return false;
         }

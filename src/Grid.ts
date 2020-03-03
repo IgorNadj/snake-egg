@@ -56,6 +56,16 @@ export class Grid<T> {
         };
     }
 
+    public countAdjacentCells(x: number, y: number, contents: T): number {
+        let count = 0;
+        const neighbours = this.getGridNeighbours(x, y);
+        if (neighbours.top === contents) count++;
+        if (neighbours.right === contents) count++;
+        if (neighbours.bottom === contents) count++;
+        if (neighbours.left === contents) count++;
+        return count;
+    }
+
     public count(havingValue: T): number {
         let count: number = 0;
         for (let y = 0; y < this.height; y++) {

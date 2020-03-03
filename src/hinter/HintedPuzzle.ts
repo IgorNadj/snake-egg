@@ -2,7 +2,7 @@ import { Puzzle, GridCell } from "../Puzzle";
 import { Grid } from "../Grid";
 
 
-export type HintCell = number | null;
+export type HintCell = GridCell | number | null;
 
 /**
  * A hinted puzzle is one that is ready for a human to play, it is mostly blank and has
