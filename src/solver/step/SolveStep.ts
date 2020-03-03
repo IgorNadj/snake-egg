@@ -4,6 +4,6 @@ import { SolvingPuzzle } from "../SolvingPuzzle";
 
 export interface SolveStep {
 
-    solveStep(puzzle: SolvingPuzzle): void;
+    solveStep(puzzle: SolvingPuzzle): SolvingPuzzle;
 
 }

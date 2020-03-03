@@ -45,9 +45,9 @@ describe("MarkAdjacentToSnake", () => {
 
     const step = new MarkAdjacentToSnake();
 
-    step.solveStep(puzzle);
+    const solved = step.solveStep(puzzle);
 
-    expect(puzzle.getSolveGrid().toArray()).to.deep.equal(expectedSolveGrid);
+    expect(solved.getSolveGrid().toArray()).to.deep.equal(expectedSolveGrid);
   });
 
   it("marks adjacent as poly when turning", () => {
@@ -82,9 +82,9 @@ describe("MarkAdjacentToSnake", () => {
 
     const step = new MarkAdjacentToSnake();
 
-    step.solveStep(puzzle);
+    const solved = step.solveStep(puzzle);
 
-    expect(puzzle.getSolveGrid().toArray()).to.deep.equal(expectedSolveGrid);
+    expect(solved.getSolveGrid().toArray()).to.deep.equal(expectedSolveGrid);
   });
 
 });

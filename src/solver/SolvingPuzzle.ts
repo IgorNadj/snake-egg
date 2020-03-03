@@ -27,16 +27,18 @@ export class SolvingPuzzle extends HintedPuzzle {
         return new SolvingPuzzle(this.width, this.height, this.maxNumber, solveGrid)
     }
 
-    public solve(x: number, y: number, contents: GridCell) {
+    public solve(x: number, y: number, contents: GridCell): SolvingPuzzle {
         if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
             // out of bounds
-            return;
+            return this;
         }
         if (this.solveGrid.get(x, y) !== null) {
             // already solved
-            return;
+            return this;
         }
-        this.solveGrid = this.solveGrid.set(x, y, contents);
+
+        const newSolveGrid = this.solveGrid.set(x, y, contents);
+        return new SolvingPuzzle(this.width, this.height, this.maxNumber, newSolveGrid);
     }
 
 }
