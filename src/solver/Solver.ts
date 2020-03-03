@@ -17,7 +17,7 @@ class Solver {
 
 
 
-        return new SolvingPuzzle(hintedPuzzle.width, hintedPuzzle.height, hintedPuzzle.maxNumber);
+        return new SolvingPuzzle(hintedPuzzle);
     }
 
 }

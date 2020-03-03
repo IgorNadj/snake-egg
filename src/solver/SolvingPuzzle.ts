@@ -6,16 +6,21 @@ import { Grid } from "../Grid";
 /**
  * A Solver uses a Solving Puzzle to gradually solve a hinted puzzle.
  */
-export class SolvingPuzzle extends HintedPuzzle {
+export class SolvingPuzzle {
 
     protected solveGrid: Grid<GridCell>;
+    readonly width: number; // convenience
+    readonly height: number; // convenience
+    readonly maxNumber: number; // convenience
 
-    constructor(readonly width: number, readonly height: number, readonly maxNumber: number, solveGrid?: Grid<GridCell>) {
-        super(width, height, maxNumber);
+    constructor(readonly hintedPuzzle: HintedPuzzle, solveGrid?: Grid<GridCell>) {
+        this.width = hintedPuzzle.width;
+        this.height = hintedPuzzle.height;
+        this.maxNumber = hintedPuzzle.maxNumber;
         if (solveGrid) {
             this.solveGrid = solveGrid;
         } else {
-            this.solveGrid = new Grid(this.width, this.height);
+            this.solveGrid = new Grid(hintedPuzzle.width, hintedPuzzle.height);
         }
     }
 
@@ -24,7 +29,7 @@ export class SolvingPuzzle extends HintedPuzzle {
     }
 
     public setSolveGrid(solveGrid: Grid<GridCell>): SolvingPuzzle {
-        return new SolvingPuzzle(this.width, this.height, this.maxNumber, solveGrid);
+        return new SolvingPuzzle(this.hintedPuzzle, solveGrid);
     }
 
     public solve(x: number, y: number, contents: GridCell): SolvingPuzzle {
@@ -38,7 +43,7 @@ export class SolvingPuzzle extends HintedPuzzle {
         }
 
         const newSolveGrid = this.solveGrid.set(x, y, contents);
-        return new SolvingPuzzle(this.width, this.height, this.maxNumber, newSolveGrid);
+        return new SolvingPuzzle(this.hintedPuzzle, newSolveGrid);
     }
 
 }

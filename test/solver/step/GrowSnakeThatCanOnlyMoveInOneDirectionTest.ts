@@ -3,6 +3,7 @@ import { Grid } from '../../../src/Grid';
 import { GridCell } from '../../../src/Puzzle';
 import { SolvingPuzzle } from '../../../src/solver/SolvingPuzzle';
 import { GrowSnakeThatCanOnlyMoveInOneDirection } from '../../../src/solver/step/GrowSnakeThatCanOnlyMoveInOneValidDirection';
+import { HintedPuzzle } from '../../../src/hinter/HintedPuzzle';
 
 
 describe("GrowSnakeThatCanOnlyMoveInOneValidDirection", () => {
@@ -33,7 +34,7 @@ describe("GrowSnakeThatCanOnlyMoveInOneValidDirection", () => {
       [null, GridCell.SNAKE, null, null, null],
     ]);
 
-    const puzzle = new SolvingPuzzle(5, 4, 5, solveGrid);
+    const puzzle = new SolvingPuzzle(new HintedPuzzle(5, 4, 5), solveGrid);
 
     const expectedSolveGrid = [
       [null, GridCell.POLY, GridCell.POLY, null, null],

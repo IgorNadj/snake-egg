@@ -3,6 +3,7 @@ import { GridCell } from '../../../src/Puzzle';
 import { SolvingPuzzle } from "../../../src/solver/SolvingPuzzle";
 import { MarkAdjacentToSnake } from '../../../src/solver/step/MarkAdjacentToSnake';
 import { Grid } from '../../../src/Grid';
+import { HintedPuzzle } from '../../../src/hinter/HintedPuzzle';
 
 
 describe("MarkAdjacentToSnake", () => {
@@ -32,7 +33,7 @@ describe("MarkAdjacentToSnake", () => {
       [null, GridCell.POLY, GridCell.SNAKE, GridCell.POLY, null],
     ]);
 
-    const puzzle = new SolvingPuzzle(5, 4, 5, solveGrid);
+    const puzzle = new SolvingPuzzle(new HintedPuzzle(5, 4, 5), solveGrid);
 
     const expectedSolveGrid = [
       [null, null, null, null, null],
@@ -70,7 +71,7 @@ describe("MarkAdjacentToSnake", () => {
       [GridCell.SNAKE, GridCell.SNAKE, GridCell.SNAKE, null, null],
     ]);
 
-    const puzzle = new SolvingPuzzle(5, 3, 5, solveGrid);
+    const puzzle = new SolvingPuzzle(new HintedPuzzle(5, 3, 5), solveGrid);
 
     const expectedSolveGrid = [
       [null, null, null, null, null],
