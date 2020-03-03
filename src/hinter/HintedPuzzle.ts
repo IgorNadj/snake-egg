@@ -12,8 +12,12 @@ export class HintedPuzzle {
 
     protected hintGrid: Grid<HintCell>;
 
-    constructor(readonly width: number, readonly height: number, readonly maxNumber: number) {
-        this.hintGrid = new Grid(width, height);
+    constructor(readonly width: number, readonly height: number, readonly maxNumber: number, hintGrid?: Grid<HintCell>) {
+        if (hintGrid) {
+            this.hintGrid = hintGrid;
+        } else {
+            this.hintGrid = new Grid(width, height);
+        }
     }
 
     public static createWithAllHints(puzzle: Puzzle): HintedPuzzle {
@@ -28,8 +32,8 @@ export class HintedPuzzle {
         return hinted;
     }
 
-    public setHintGrid(grid: Grid<HintCell>) {
-        this.hintGrid = grid;
+    public setHintGrid(grid: Grid<HintCell>): HintedPuzzle {
+        return new HintedPuzzle(this.width, this.height, this.maxNumber, grid);
     }
 
     public getHintGrid(): Grid<HintCell> {
