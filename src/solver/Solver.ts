@@ -3,7 +3,7 @@ import { Puzzle } from "../Puzzle";
 import { SolvingPuzzle } from "./SolvingPuzzle";
 
 
-class HumanSolver {
+class Solver {
 
     public solve(hintedPuzzle: HintedPuzzle): SolvingPuzzle {
         // Things to try in order of how complicated they are:
