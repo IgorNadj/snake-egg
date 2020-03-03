@@ -17,16 +17,16 @@ export class GrowSnakeThatCanOnlyMoveInOneDirection implements SolveStep {
 
             let validSnakeDirections = PuzzleHelper.getValidSnakeDirections(solveNeighbours);
 
-            if (y < 0) {
+            if (y <= 0) {
                 validSnakeDirections = validSnakeDirections.remove(SnakeDirection.top);
             }
-            if (y >= puzzle.height) {
+            if (y >= puzzle.height - 1) {
                 validSnakeDirections = validSnakeDirections.remove(SnakeDirection.bottom);
             }
-            if (x < 0) {
+            if (x <= 0) {
                 validSnakeDirections = validSnakeDirections.remove(SnakeDirection.left);
             }
-            if (x >= puzzle.width) {
+            if (x >= puzzle.width - 1) {
                 validSnakeDirections = validSnakeDirections.remove(SnakeDirection.right);
             }
 
@@ -50,5 +50,7 @@ export class GrowSnakeThatCanOnlyMoveInOneDirection implements SolveStep {
                 }
             }
         }
+
+        return puzzle;
     }
 }
