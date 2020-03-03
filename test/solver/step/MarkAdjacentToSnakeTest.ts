@@ -1,7 +1,5 @@
 import { expect } from 'chai';
-import { Polyomino, PointInt } from 'polyomino';
-import { GridCell, Puzzle } from '../../../src/Puzzle';
-import { Set } from 'immutable';
+import { GridCell } from '../../../src/Puzzle';
 import { SolvingPuzzle } from "../../../src/solver/SolvingPuzzle";
 import { MarkAdjacentToSnake } from '../../../src/solver/step/MarkAdjacentToSnake';
 import { Grid } from '../../../src/Grid';
