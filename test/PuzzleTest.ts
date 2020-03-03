@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { Polyomino, PointInt } from 'polyomino';
-import { GridCell, Puzzle } from '../src/Puzzle';
+import { GridCell, Puzzle, SnakeDirection } from '../src/Puzzle';
 import { PlacedPolyomino } from '../src/polyomino/PlacedPolyomino';
 import { Set } from 'immutable';
 import { Neighbours } from '../src/Grid';
@@ -42,6 +42,33 @@ describe("Puzzle", () => {
     }
 
     expect(Puzzle.countSnakeAdjacentSegments(neighbours)).to.equal(2);
+  });
+
+  it("getValidSnakeDirections works", () => {
+    /*
+     * _ . .
+     * 1 . _
+     * _ _ _
+     */
+    // Given the target point is in the middle, it can only move down
+
+    const puzzle = new Puzzle(3, 3, 1);
+
+    const neighbours: Neighbours<GridCell> = {
+      top: GridCell.SNAKE,
+      right: null,
+      bottom: null,
+      left: GridCell.POLY,
+      topRight: GridCell.SNAKE,
+      bottomRight: null,
+      bottomLeft: null,
+      topLeft: null,
+    }
+
+    const actual = Puzzle.getValidSnakeDirections(neighbours);
+
+    expect(actual.size).to.equal(1);
+    expect(actual.first()).to.equal(SnakeDirection.bottom);
   });
 
   it("getSnakeLength works", () => {

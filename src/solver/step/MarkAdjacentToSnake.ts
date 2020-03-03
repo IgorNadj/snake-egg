@@ -14,8 +14,9 @@ export class MarkAdjacentToSnake implements SolveStep {
 
                 const solveNeighbours = puzzle.getSolveGrid().getGridNeighbours(x, y);
 
-                if (Puzzle.countSnakeAdjacentSegments(solveNeighbours) > 1) {
-                    // this is not the head/tail of the snake, don't need to worry about it
+                const isSnakeHead = Puzzle.isSnakeHead(solveNeighbours);
+
+                if (!isSnakeHead) {
                     continue;
                 }
 

@@ -67,6 +67,27 @@ export class Puzzle {
         return count;
     }
 
+    public static isSnakeHead(neighbours: Neighbours<GridCell>): boolean {
+        return Puzzle.countSnakeAdjacentSegments(neighbours) <= 1;
+    }
+
+    public static getValidSnakeDirections(neighbours: Neighbours<GridCell>): Set<SnakeDirection> {
+        let directions: Set<SnakeDirection> = Set();
+        if (neighbours.top === null && neighbours.topLeft !== GridCell.SNAKE && neighbours.topRight !== GridCell.SNAKE) {
+            directions = directions.add(SnakeDirection.top);
+        }
+        if (neighbours.right === null && neighbours.topRight !== GridCell.SNAKE && neighbours.bottomRight !== GridCell.SNAKE) {
+            directions = directions.add(SnakeDirection.right);
+        }
+        if (neighbours.bottom === null && neighbours.bottomLeft !== GridCell.SNAKE && neighbours.bottomRight !== GridCell.SNAKE) {
+            directions = directions.add(SnakeDirection.bottom);
+        }
+        if (neighbours.left === null && neighbours.topLeft !== GridCell.SNAKE && neighbours.bottomLeft !== GridCell.SNAKE) {
+            directions = directions.add(SnakeDirection.left);
+        }
+        return directions;
+    }
+
     public static snakeLoopsImmediately(neighbours: Neighbours<GridCell>): boolean {
         if (neighbours.top === GridCell.SNAKE && neighbours.right === GridCell.SNAKE && neighbours.topRight === GridCell.SNAKE) return true;
         if (neighbours.right === GridCell.SNAKE && neighbours.bottom === GridCell.SNAKE && neighbours.bottomRight === GridCell.SNAKE) return true;
