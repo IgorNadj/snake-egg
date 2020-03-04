@@ -5,7 +5,7 @@ import { PuzzleHelper, SnakeDirection } from "../../helper/PuzzleHelper";
 
 export class GrowSnakeThatCanOnlyMoveInOneDirection implements Strategy {
 
-    public solveStep(puzzle: SolvingPuzzle): SolvingPuzzle {
+    public solve(puzzle: SolvingPuzzle): SolvingPuzzle {
 
         const snakeEnds = PuzzleHelper.getSnakeEnds(puzzle.getSolveGrid());
 

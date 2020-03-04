@@ -5,7 +5,7 @@ import { PuzzleHelper } from "../../helper/PuzzleHelper";
 
 export class MarkAdjacentToSnake implements Strategy {
 
-    public solveStep(puzzle: SolvingPuzzle): SolvingPuzzle {
+    public solve(puzzle: SolvingPuzzle): SolvingPuzzle {
 
         const snakeEnds = PuzzleHelper.getSnakeEnds(puzzle.getSolveGrid());
 

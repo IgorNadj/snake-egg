@@ -63,7 +63,7 @@ export class Solver {
 
     protected step(puzzle: SolvingPuzzle): SolveStep | null {
         for (const strategy of Strategies) {
-            const puzzleAfter = strategy.solveStep(puzzle);
+            const puzzleAfter = strategy.solve(puzzle);
             if (puzzleAfter === puzzle) {
                 // nothing changed, try next
                 continue;

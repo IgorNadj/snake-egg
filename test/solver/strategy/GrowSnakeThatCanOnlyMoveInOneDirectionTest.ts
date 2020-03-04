@@ -43,9 +43,9 @@ describe("GrowSnakeThatCanOnlyMoveInOneValidDirection", () => {
       [null, GridCell.SNAKE, null, null, null],
     ];
 
-    const step = new GrowSnakeThatCanOnlyMoveInOneDirection();
+    const strategy = new GrowSnakeThatCanOnlyMoveInOneDirection();
 
-    const solved = step.solveStep(puzzle);
+    const solved = strategy.solve(puzzle);
 
     expect(solved.getSolveGrid().toArray()).to.deep.equal(expectedSolveGrid);
   });

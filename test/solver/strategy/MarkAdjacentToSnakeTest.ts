@@ -42,9 +42,9 @@ describe("MarkAdjacentToSnake", () => {
       [null, GridCell.POLY, GridCell.SNAKE, GridCell.POLY, null],
     ];
 
-    const step = new MarkAdjacentToSnake();
+    const strategy = new MarkAdjacentToSnake();
 
-    const solved = step.solveStep(puzzle);
+    const solved = strategy.solve(puzzle);
 
     expect(solved.getSolveGrid().toArray()).to.deep.equal(expectedSolveGrid);
   });
@@ -79,9 +79,9 @@ describe("MarkAdjacentToSnake", () => {
       [GridCell.SNAKE, GridCell.SNAKE, GridCell.SNAKE, GridCell.POLY, null],
     ];
 
-    const step = new MarkAdjacentToSnake();
+    const strategy = new MarkAdjacentToSnake();
 
-    const solved = step.solveStep(puzzle);
+    const solved = strategy.solve(puzzle);
 
     expect(solved.getSolveGrid().toArray()).to.deep.equal(expectedSolveGrid);
   });
