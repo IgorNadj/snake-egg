@@ -1,7 +1,7 @@
 import { HintedPuzzle } from "../hinter/HintedPuzzle";
 import { SolvingPuzzle } from "./SolvingPuzzle";
 import { Steps } from './Steps';
-import { SolveStep } from "./step/SolveStep";
+import { SolveStep } from "./strategy/SolveStep";
 import { List } from "immutable";
 
 export type SolveResult = {
