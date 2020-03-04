@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { GridCell } from '../../../src/Puzzle';
 import { SolvingPuzzle, SolveCell } from "../../../src/solver/SolvingPuzzle";
 import { MarkAdjacentToSnake } from '../../../src/solver/step/MarkAdjacentToSnake';
-import { Grid } from '../../../src/Grid';
+import { Grid } from '../../../src/grid/Grid';
 import { HintedPuzzle } from '../../../src/hinter/HintedPuzzle';
 
 

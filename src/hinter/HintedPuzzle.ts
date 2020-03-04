@@ -1,5 +1,5 @@
 import { Puzzle, GridCell } from "../Puzzle";
-import { Grid } from "../Grid";
+import { Grid } from "../grid/Grid";
 
 
 export type HintCell = GridCell | number | null;

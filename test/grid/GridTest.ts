@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { Grid } from '../src/Grid';
+import { Grid } from '../../src/grid/Grid';
 
 describe("Grid", () => {
 

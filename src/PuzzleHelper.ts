@@ -1,4 +1,4 @@
-import { Grid, Neighbours } from "./Grid";
+import { Grid, Neighbours } from "./grid/Grid";
 import { GridCell } from "./Puzzle";
 import { PointInt } from "polyomino";
 import { Set } from "immutable";

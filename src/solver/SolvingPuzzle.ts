@@ -1,6 +1,6 @@
 import { HintedPuzzle, HintCell } from "../hinter/HintedPuzzle";
 import { GridCell } from "../Puzzle";
-import { Grid } from "../Grid";
+import { Grid } from "../grid/Grid";
 
 
 export type SolveCell = GridCell | number | null;

@@ -3,7 +3,7 @@ import { PlacedPolyomino } from './polyomino/PlacedPolyomino';
 import { Snake } from './validator/Snake';
 import { PolyominosInBounds } from './validator/PolyominosInBounds';
 import { PolyominosOverlap } from './validator/PolyominosOverlap';
-import { Grid } from "./Grid";
+import { Grid } from "./grid/Grid";
 
 export enum GridCell {
     SNAKE = ".",

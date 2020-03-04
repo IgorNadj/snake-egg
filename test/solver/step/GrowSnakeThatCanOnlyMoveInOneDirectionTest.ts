@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { Grid } from '../../../src/Grid';
+import { Grid } from '../../../src/grid/Grid';
 import { GridCell } from '../../../src/Puzzle';
 import { SolvingPuzzle, SolveCell } from '../../../src/solver/SolvingPuzzle';
 import { GrowSnakeThatCanOnlyMoveInOneDirection } from '../../../src/solver/step/GrowSnakeThatCanOnlyMoveInOneValidDirection';

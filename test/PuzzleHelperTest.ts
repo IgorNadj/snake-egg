@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { PuzzleHelper, SnakeDirection } from '../src/PuzzleHelper';
-import { Neighbours, Grid } from '../src/Grid';
+import { Neighbours, Grid } from '../src/grid/Grid';
 import { GridCell } from '../src/Puzzle';
 import { PointInt } from 'polyomino';
 

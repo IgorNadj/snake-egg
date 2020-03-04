@@ -1,6 +1,6 @@
 import { Puzzle } from "../Puzzle";
 import { HintedPuzzle, HintCell } from "./HintedPuzzle";
-import { Grid } from "../Grid";
+import { Grid } from "../grid/Grid";
 
 
 export class Hinter {
