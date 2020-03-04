@@ -1,7 +1,7 @@
 import { SolveStep } from "./SolveStep";
 import { SolvingPuzzle } from "../SolvingPuzzle";
 import { GridCell } from "../../Puzzle";
-import { PuzzleHelper } from "../../PuzzleHelper";
+import { PuzzleHelper } from "../../helper/PuzzleHelper";
 
 export class MarkAdjacentToSnake implements SolveStep {
 

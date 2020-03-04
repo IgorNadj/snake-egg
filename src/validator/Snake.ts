@@ -1,7 +1,7 @@
 import { PointInt } from 'polyomino';
 import { Set } from 'immutable';
 import { Puzzle, GridCell } from '../Puzzle';
-import { PuzzleHelper } from "../PuzzleHelper";
+import { PuzzleHelper } from "../helper/PuzzleHelper";
 
 
 export class Snake {

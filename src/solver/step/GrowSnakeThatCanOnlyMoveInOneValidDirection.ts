@@ -1,7 +1,7 @@
 import { SolveStep } from "./SolveStep";
 import { SolvingPuzzle } from "../SolvingPuzzle";
 import { GridCell } from "../../Puzzle";
-import { PuzzleHelper, SnakeDirection } from "../../PuzzleHelper";
+import { PuzzleHelper, SnakeDirection } from "../../helper/PuzzleHelper";
 
 export class GrowSnakeThatCanOnlyMoveInOneDirection implements SolveStep {
 
