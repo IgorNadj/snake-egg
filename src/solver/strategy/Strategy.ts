@@ -2,7 +2,7 @@ import { SolvingPuzzle } from "../SolvingPuzzle";
 
 
 
-export interface SolveStep {
+export interface Strategy {
 
     solveStep(puzzle: SolvingPuzzle): SolvingPuzzle;
 

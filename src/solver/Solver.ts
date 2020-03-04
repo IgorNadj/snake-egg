@@ -1,19 +1,19 @@
 import { HintedPuzzle } from "../hinter/HintedPuzzle";
 import { SolvingPuzzle } from "./SolvingPuzzle";
-import { Steps } from './Steps';
-import { SolveStep } from "./strategy/SolveStep";
+import { Strategies } from './Strategies';
+import { Strategy } from "./strategy/Strategy";
 import { List } from "immutable";
 
 export type SolveResult = {
     hasSolution: boolean,
     solution?: SolvingPuzzle,
     initial: SolvingPuzzle,
-    solveStepTaken: List<SolveStepTaken>,
+    steps: List<SolveStep>,
 }
 
-export type SolveStepTaken = {
+export type SolveStep = {
     after: SolvingPuzzle,
-    step: SolveStep,
+    strategy: Strategy,
 }
 
 export class Solver {
@@ -25,7 +25,7 @@ export class Solver {
 
         let current = initial;
 
-        let solveStepTaken: List<SolveStepTaken> = List();
+        let steps: List<SolveStep> = List();
 
         for (let stepNum = 0; stepNum < this.STEP_LIMIT; stepNum++) {
 
@@ -36,7 +36,7 @@ export class Solver {
                     hasSolution: true,
                     solution: current,
                     initial: initial,
-                    solveStepTaken: solveStepTaken,
+                    steps: steps,
                 }
             }
 
@@ -47,12 +47,12 @@ export class Solver {
                 return {
                     hasSolution: false,
                     initial: initial,
-                    solveStepTaken: solveStepTaken,
+                    steps: steps,
                 }
             }
 
             // something changed
-            solveStepTaken = solveStepTaken.push(stepResult);
+            steps = steps.push(stepResult);
 
             current = stepResult.after;
         }
@@ -61,9 +61,9 @@ export class Solver {
         throw 'Too many steps needed';
     }
 
-    protected step(puzzle: SolvingPuzzle): SolveStepTaken | null {
-        for (const step of Steps) {
-            const puzzleAfter = step.solveStep(puzzle);
+    protected step(puzzle: SolvingPuzzle): SolveStep | null {
+        for (const strategy of Strategies) {
+            const puzzleAfter = strategy.solveStep(puzzle);
             if (puzzleAfter === puzzle) {
                 // nothing changed, try next
                 continue;
@@ -71,7 +71,7 @@ export class Solver {
                 // something changed
                 return {
                     after: puzzleAfter,
-                    step: step,
+                    strategy: strategy,
                 };
             }
         }

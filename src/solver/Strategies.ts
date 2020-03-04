@@ -1,8 +1,8 @@
-import { SolveStep } from './strategy/SolveStep';
+import { Strategy } from './strategy/Strategy';
 import { GrowSnakeThatCanOnlyMoveInOneDirection } from './strategy/GrowSnakeThatCanOnlyMoveInOneValidDirection';
 import { MarkAdjacentToSnake } from './strategy/MarkAdjacentToSnake';
 
-export const Steps: SolveStep[] = [
+export const Strategies: Strategy[] = [
     new GrowSnakeThatCanOnlyMoveInOneDirection(),
     new MarkAdjacentToSnake(),
 ];

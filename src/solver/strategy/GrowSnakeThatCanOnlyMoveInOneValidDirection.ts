@@ -1,9 +1,9 @@
-import { SolveStep } from "./SolveStep";
+import { Strategy } from "./Strategy";
 import { SolvingPuzzle } from "../SolvingPuzzle";
 import { GridCell } from "../../Puzzle";
 import { PuzzleHelper, SnakeDirection } from "../../helper/PuzzleHelper";
 
-export class GrowSnakeThatCanOnlyMoveInOneDirection implements SolveStep {
+export class GrowSnakeThatCanOnlyMoveInOneDirection implements Strategy {
 
     public solveStep(puzzle: SolvingPuzzle): SolvingPuzzle {
 
