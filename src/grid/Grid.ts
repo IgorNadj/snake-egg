@@ -1,3 +1,5 @@
+import { Set } from 'immutable';
+import { PointInt } from 'polyomino';
 
 export type Neighbours<X> = {
     top: X | null,
@@ -76,6 +78,24 @@ export class Grid<T> {
             }
         }
         return count;
+    }
+
+    public cellsDifferent(other: Grid<T>): Set<PointInt> {
+        if (other.width !== this.width || other.height !== this.height) {
+            throw 'Size must match';
+        }
+
+        let diff: Set<PointInt> = Set();
+
+        for (let x = 0; x < this.width; x++) {
+            for (let y = 0; y < this.height; y++) {
+                if (this.grid[y][x] !== other.grid[y][x]) {
+                    diff = diff.add(new PointInt(x, y));
+                }
+            }
+        }
+
+        return diff;
     }
 
     public fromArray(array: T[][]): Grid<T> {

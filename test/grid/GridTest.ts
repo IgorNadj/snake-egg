@@ -1,5 +1,7 @@
 import { expect } from 'chai';
 import { Grid } from '../../src/grid/Grid';
+import { Set } from 'immutable';
+import { PointInt } from 'polyomino';
 
 describe("Grid", () => {
 
@@ -28,6 +30,27 @@ describe("Grid", () => {
         expect(actual.get(1, 0)).to.equal(5);
         expect(actual.get(0, 1)).to.equal(5);
         expect(actual.get(1, 1)).to.equal(5);
+    });
+
+    it('cellsDifferent works', () => {
+        let grid1: Grid<any> = new Grid(2, 2);
+        grid1 = grid1.fromArray([[1, 2], [null, null]]);
+
+        let grid2: Grid<any> = new Grid(2, 2);
+        grid2 = grid2.fromArray([[null, 2], [null, 4]]);
+
+        const diffSelf = grid1.cellsDifferent(grid1);
+
+        expect(diffSelf.size).to.equal(0);
+
+        const diffOneWay = grid2.cellsDifferent(grid1);
+        const diffTheOtherWay = grid1.cellsDifferent(grid2);
+
+        expect(diffOneWay.toArray()).to.deep.equal(diffTheOtherWay.toArray());
+
+        expect(diffOneWay.size).to.equal(2);
+        expect(diffOneWay.toJS()[0]).to.deep.equal(new PointInt(0, 0));
+        expect(diffOneWay.toJS()[1]).to.deep.equal(new PointInt(1, 1));
     });
 
     it("fromArray works", () => {
