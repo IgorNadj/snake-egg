@@ -2,7 +2,8 @@ import { HintedPuzzle } from "../hinter/HintedPuzzle";
 import { SolvingPuzzle } from "./SolvingPuzzle";
 import { Strategies } from './Strategies';
 import { Strategy } from "./strategy/Strategy";
-import { List } from "immutable";
+import { List, Set } from "immutable";
+import { PointInt } from "polyomino";
 
 export type SolveResult = {
     hasSolution: boolean,
@@ -14,6 +15,7 @@ export type SolveResult = {
 export type SolveStep = {
     after: SolvingPuzzle,
     strategy: Strategy,
+    affectedCells: Set<PointInt>,
 }
 
 export class Solver {
@@ -64,6 +66,7 @@ export class Solver {
     protected step(puzzle: SolvingPuzzle): SolveStep | null {
         for (const strategy of Strategies) {
             const puzzleAfter = strategy.solve(puzzle);
+            const affectedCells = puzzle.getSolveGrid().cellsDifferent(puzzleAfter.getSolveGrid());
             if (puzzleAfter === puzzle) {
                 // nothing changed, try next
                 continue;
@@ -72,6 +75,7 @@ export class Solver {
                 return {
                     after: puzzleAfter,
                     strategy: strategy,
+                    affectedCells: affectedCells,
                 };
             }
         }
