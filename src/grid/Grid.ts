@@ -58,13 +58,20 @@ export class Grid<T> {
         };
     }
 
-    public countAdjacentCells(x: number, y: number, contents: T): number {
+    /**
+     * @param x 
+     * @param y 
+     * @param contents one or more acceptible cell contents
+     */
+    public countAdjacentCells(x: number, y: number, contents: T | T[]): number {
+        const contentsArr = Array.isArray(contents) ? contents : [contents];
         let count = 0;
         const neighbours = this.getGridNeighbours(x, y);
-        if (neighbours.top === contents) count++;
-        if (neighbours.right === contents) count++;
-        if (neighbours.bottom === contents) count++;
-        if (neighbours.left === contents) count++;
+        ['top', 'right', 'bottom', 'left'].forEach((dir) => {
+            if (contentsArr.includes(neighbours[dir])) {
+                count++;
+            }
+        })
         return count;
     }
 

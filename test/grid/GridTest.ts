@@ -71,7 +71,6 @@ describe("Grid", () => {
         expect(grid.toArray()).to.deep.equal([[1, 2], [3, 4]]);
     });
 
-
     it("getGridNeighbours works", () => {
         /*
          * 1 0
@@ -95,6 +94,34 @@ describe("Grid", () => {
         };
 
         expect(neighbours).to.deep.equal(expected);
+    });
+
+    it("countAdjacentCells works", () => {
+        /*
+         * 1 0
+         * 0 0
+         */
+
+        let grid: Grid<number> = new Grid(2, 2);
+        grid = grid.fromArray([[1, 0], [0, 0]]);
+
+        const numAdjacentZeros = grid.countAdjacentCells(1, 1, 0);
+
+        expect(numAdjacentZeros).to.equal(2);
+    });
+
+    it("countAdjacentCells works with multiple", () => {
+        /*
+         * 1 9
+         * 8 8
+         */
+
+        let grid: Grid<number> = new Grid(2, 2);
+        grid = grid.fromArray([[1, 9], [8, 8]]);
+
+        const numAdjacent8or9 = grid.countAdjacentCells(1, 1, [8, 9]);
+
+        expect(numAdjacent8or9).to.equal(2);
     });
 
     it("count works", () => {
