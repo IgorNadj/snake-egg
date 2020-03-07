@@ -1,8 +1,10 @@
 import { Puzzle, GridCell } from "../Puzzle";
 import { Grid } from "../grid/Grid";
+import { PuzzleHelper } from "../helper/PuzzleHelper";
 
+export const EGG = "o";
 
-export type HintCell = GridCell | number | null;
+export type HintCell = GridCell | typeof EGG | number | null;
 
 /**
  * A hinted puzzle is one that is ready for a human to play, it is mostly blank and has
@@ -30,6 +32,9 @@ export class HintedPuzzle {
             poly.getAbsolutePoints().forEach((point) => {
                 hintGrid = hintGrid.set(point.x, point.y, poly.size);
             });
+        });
+        PuzzleHelper.getSnakeEnds(puzzle.getGrid()).forEach((end) => {
+            hintGrid = hintGrid.set(end.x, end.y, EGG);
         });
         hinted.hintGrid = hintGrid;
         return hinted;

@@ -1,9 +1,9 @@
-import { HintedPuzzle, HintCell } from "../hinter/HintedPuzzle";
+import { HintedPuzzle, HintCell, EGG } from "../hinter/HintedPuzzle";
 import { GridCell } from "../Puzzle";
 import { Grid } from "../grid/Grid";
 
 
-export type SolveCell = GridCell | number | null;
+export type SolveCell = GridCell | typeof EGG | number | null;
 
 /**
  * A Solver uses a Solving Puzzle to gradually solve a hinted puzzle.
