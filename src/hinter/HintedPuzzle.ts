@@ -14,6 +14,9 @@ export class HintedPuzzle {
 
     constructor(readonly width: number, readonly height: number, readonly maxNumber: number, hintGrid?: Grid<HintCell>) {
         if (hintGrid) {
+            if (hintGrid.width !== width || hintGrid.height !== height) {
+                throw 'Size mismatch';
+            }
             this.hintGrid = hintGrid;
         } else {
             this.hintGrid = new Grid(width, height);

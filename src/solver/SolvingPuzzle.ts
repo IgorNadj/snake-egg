@@ -20,6 +20,9 @@ export class SolvingPuzzle {
         this.height = hintedPuzzle.height;
         this.maxNumber = hintedPuzzle.maxNumber;
         if (solveGrid) {
+            if (solveGrid.width !== this.width || solveGrid.height !== this.height) {
+                throw 'Size mismatch';
+            }
             this.solveGrid = solveGrid;
         } else {
             this.solveGrid = this.createSolveGridFromHintGrid(hintedPuzzle.getHintGrid());
