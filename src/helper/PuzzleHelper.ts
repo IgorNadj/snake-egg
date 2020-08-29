@@ -2,6 +2,7 @@ import { Grid, Neighbours } from "../grid/Grid";
 import { GridCell } from "../Puzzle";
 import { PointInt } from "polyomino";
 import { Set } from "immutable";
+import {EGG, HintCell} from "../hinter/HintedPuzzle";
 
 
 export enum SnakeDirection {
@@ -16,27 +17,33 @@ export class PuzzleHelper {
 
     public static getValidSnakeDirections(neighbours: Neighbours<any>): Set<SnakeDirection> {
         let directions: Set<SnakeDirection> = Set();
-        if (neighbours.top === null && neighbours.topLeft !== GridCell.SNAKE && neighbours.topRight !== GridCell.SNAKE) {
+
+        if (neighbours.top === null && !this.isSnake(neighbours.topLeft) && !this.isSnake(neighbours.topRight)) {
             directions = directions.add(SnakeDirection.top);
         }
-        if (neighbours.right === null && neighbours.topRight !== GridCell.SNAKE && neighbours.bottomRight !== GridCell.SNAKE) {
+        if (neighbours.right === null && !this.isSnake(neighbours.topRight) && !this.isSnake(neighbours.bottomRight)) {
             directions = directions.add(SnakeDirection.right);
         }
-        if (neighbours.bottom === null && neighbours.bottomLeft !== GridCell.SNAKE && neighbours.bottomRight !== GridCell.SNAKE) {
+        if (neighbours.bottom === null && !this.isSnake(neighbours.bottomLeft) && !this.isSnake(neighbours.bottomRight)) {
             directions = directions.add(SnakeDirection.bottom);
         }
-        if (neighbours.left === null && neighbours.topLeft !== GridCell.SNAKE && neighbours.bottomLeft !== GridCell.SNAKE) {
+        if (neighbours.left === null && !this.isSnake(neighbours.topLeft) && !this.isSnake(neighbours.bottomLeft)) {
             directions = directions.add(SnakeDirection.left);
         }
         return directions;
     }
 
     public static snakeLoopsImmediately(neighbours: Neighbours<any>): boolean {
-        if (neighbours.top === GridCell.SNAKE && neighbours.right === GridCell.SNAKE && neighbours.topRight === GridCell.SNAKE) return true;
-        if (neighbours.right === GridCell.SNAKE && neighbours.bottom === GridCell.SNAKE && neighbours.bottomRight === GridCell.SNAKE) return true;
-        if (neighbours.bottom === GridCell.SNAKE && neighbours.left === GridCell.SNAKE && neighbours.bottomLeft === GridCell.SNAKE) return true;
-        if (neighbours.left === GridCell.SNAKE && neighbours.top === GridCell.SNAKE && neighbours.topLeft === GridCell.SNAKE) return true;
-        return false;
+        const tests = [
+            ['top', 'right', 'topRight'],
+            ['right', 'bottom', 'bottomRight'],
+            ['bottom', 'left', 'bottomLeft'],
+            ['left', 'top', 'topLeft'],
+        ];
+
+        return tests.some((test) => test.every(direction => {
+            return this.isSnake(neighbours[direction]);
+        }))
     }
 
     /**
@@ -49,7 +56,7 @@ export class PuzzleHelper {
                 // e.g. left is snake, but we came from the left, so ignore it
                 continue;
             }
-            if (neighbours[direction] === GridCell.SNAKE) {
+            if (this.isSnake(neighbours[direction])) {
                 if (direction === SnakeDirection.top) {
                     return 1 + this.getSnakeLength(grid, new PointInt(currentPos.x, currentPos.y - 1), SnakeDirection.bottom);
                 }
@@ -69,11 +76,11 @@ export class PuzzleHelper {
     }
 
     public static countSnakeAdjacentSegments(grid: Grid<any>, x: number, y: number): number {
-        return grid.countAdjacentCells(x, y, GridCell.SNAKE);
+        return grid.countAdjacentCells(x, y, [GridCell.SNAKE, EGG]);
     }
 
     public static isSnakeHead(grid: Grid<any>, x: number, y: number): boolean {
-        if (grid.get(x, y) !== GridCell.SNAKE) {
+        if (!this.isSnake(grid.get(x, y))) {
             return false;
         }
         return PuzzleHelper.countSnakeAdjacentSegments(grid, x, y) <= 1;
@@ -89,6 +96,10 @@ export class PuzzleHelper {
             }
         }
         return points;
+    }
+
+    public static isSnake(cell: HintCell) {
+        return cell === GridCell.SNAKE || cell === EGG;
     }
 
 }
