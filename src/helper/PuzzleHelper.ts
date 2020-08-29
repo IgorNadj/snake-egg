@@ -83,14 +83,14 @@ export class PuzzleHelper {
         if (!this.isSnake(grid.get(x, y))) {
             return false;
         }
-        return PuzzleHelper.countSnakeAdjacentSegments(grid, x, y) <= 1;
+        return this.countSnakeAdjacentSegments(grid, x, y) <= 1;
     }
 
     public static getSnakeEnds(grid: Grid<any>): Set<PointInt> {
         let points: Set<PointInt> = Set();
         for (let x = 0; x < grid.width; x++) {
             for (let y = 0; y < grid.height; y++) {
-                if (PuzzleHelper.isSnakeHead(grid, x, y)) {
+                if (this.isSnakeHead(grid, x, y)) {
                     points = points.add(new PointInt(x, y));
                 }
             }
