@@ -1,8 +1,8 @@
-import { expect } from 'chai';
-import { PuzzleHelper, SnakeDirection } from '../../src/helper/PuzzleHelper';
-import { Neighbours, Grid } from '../../src/grid/Grid';
-import { GridCell } from '../../src/Puzzle';
-import { PointInt } from 'polyomino';
+import {expect} from 'chai';
+import {PuzzleHelper, SnakeDirection} from '../../src/helper/PuzzleHelper';
+import {Grid, Neighbours} from '../../src/grid/Grid';
+import {GridCell} from '../../src/Puzzle';
+import {PointInt} from 'polyomino';
 import {EGG, HintCell} from '../../src/hinter/HintedPuzzle';
 
 
@@ -175,6 +175,31 @@ describe("PuzzleHelper", () => {
         ]);
 
         expect(PuzzleHelper.countSnakeAdjacentSegments(grid, 1, 1)).to.equal(2);
+    });
+
+    it("getSnakeEnds works", () => {
+        /*
+         * . .
+         *   .
+         * o . 1
+         */
+        // Given the above, ends are top left and bottom left
+        
+        const grid = new Grid(3, 3, [
+            [GridCell.SNAKE, GridCell.SNAKE, null],
+            [null, GridCell.SNAKE, null],
+            [EGG, GridCell.SNAKE, 1],
+        ]);
+
+        const ends = PuzzleHelper.getSnakeEnds(grid);
+
+        expect(ends.size).to.equal(2);
+
+        expect(ends.toArray()[0].x).to.equal(0);
+        expect(ends.toArray()[0].y).to.equal(0);
+
+        expect(ends.toArray()[1].x).to.equal(0);
+        expect(ends.toArray()[1].y).to.equal(2);
     });
 
 });
