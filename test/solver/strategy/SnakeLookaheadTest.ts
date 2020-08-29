@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 
-describe("SnakeLookahead", () => {
+describe.skip("SnakeLookahead", () => {
 
   it("knows when snake cant move in a direction if it will hit an egg", () => {
     /*

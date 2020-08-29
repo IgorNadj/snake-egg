@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 
-describe("GrowSnakeOutOfPolyTunnel", () => {
+describe.skip("GrowSnakeOutOfPolyTunnel", () => {
 
   it("extends a snake out of a tunnel", () => {
     /*

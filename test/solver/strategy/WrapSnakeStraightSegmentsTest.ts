@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 
-describe("WrapSnakeStraightSegments", () => {
+describe.skip("WrapSnakeStraightSegments", () => {
 
   it("wraps straight lengths of snake with poly", () => {
     /*

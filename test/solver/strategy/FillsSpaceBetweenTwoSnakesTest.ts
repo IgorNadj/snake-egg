@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 
-describe("FillsSpaceBetweenTwoSnakes", () => {
+describe.skip("FillsSpaceBetweenTwoSnakes", () => {
 
   it("fills any space between two snakes separated by one cell", () => {
     /*

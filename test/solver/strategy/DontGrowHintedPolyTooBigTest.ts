@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 
-describe("DontGrowHintedPolyTooBig", () => {
+describe.skip("DontGrowHintedPolyTooBig", () => {
 
   it("knows when a hinted poly cannot grow in a certain direction, and fills with snake", () => {
     /*

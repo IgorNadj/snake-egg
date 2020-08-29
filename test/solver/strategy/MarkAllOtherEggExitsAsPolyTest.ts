@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 
-describe("MarkAllOtherEggExitsAsPoly", () => {
+describe.skip("MarkAllOtherEggExitsAsPoly", () => {
 
   it("marks all other egg exists as poly", () => {
     /*

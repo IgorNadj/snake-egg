@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 
-describe("FillPolyVoids", () => {
+describe.skip("FillPolyVoids", () => {
 
   it("fills corner spaces that cant contain snake", () => {
     /*

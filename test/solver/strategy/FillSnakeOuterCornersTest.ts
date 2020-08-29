@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 
-describe("FillSnakeOuterCorners", () => {
+describe.skip("FillSnakeOuterCorners", () => {
 
   it("fills snake outer corners", () => {
     /*

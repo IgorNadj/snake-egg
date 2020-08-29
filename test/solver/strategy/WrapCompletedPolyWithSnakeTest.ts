@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 
-describe("WrapCompletedPolyWithSnake", () => {
+describe.skip("WrapCompletedPolyWithSnake", () => {
 
   it("wraps poly that has hit its size / max with poly", () => {
     /*

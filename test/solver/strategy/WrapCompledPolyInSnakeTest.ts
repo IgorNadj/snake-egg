@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 
-describe("WrapsCompledPolyInSnake", () => {
+describe.skip("WrapsCompledPolyInSnake", () => {
 
   it("wraps completed poly in snake", () => {
     /*
