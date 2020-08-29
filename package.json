@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc",
     "generate": "node dist/generate.js",
-    "test": "mocha -r ts-node/register 'test/**/**.ts'"
+    "test": "mocha --inline-diffs -r ts-node/register 'test/**/**.ts'"
   },
   "author": "",
   "license": "ISC",
