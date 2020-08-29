@@ -3,7 +3,7 @@ import {SolvingPuzzle} from "../SolvingPuzzle";
 import {GridCell} from "../../Puzzle";
 import {PuzzleHelper} from "../../helper/PuzzleHelper";
 
-export class MarkAdjacentToSnake implements Strategy {
+export class MarkOrthogonalToSnakeBody implements Strategy {
 
     public solve(puzzle: SolvingPuzzle): SolvingPuzzle {
 

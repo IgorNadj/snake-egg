@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import { GridCell } from '../../../src/Puzzle';
 import { SolvingPuzzle, SolveCell } from "../../../src/solver/SolvingPuzzle";
-import { MarkAdjacentToSnake } from '../../../src/solver/strategy/MarkAdjacentToSnake';
+import { MarkOrthogonalToSnakeBody } from '../../../src/solver/strategy/MarkOrthogonalToSnakeBody';
 import { Grid } from '../../../src/grid/Grid';
 import {HintedPuzzle, EGG, HintCell} from '../../../src/hinter/HintedPuzzle';
 
-describe("MarkAdjacentToSnake", () => {
+describe("MarkOrthogonalToSnakeBody", () => {
 
   it("marks cells orthogonal to snake body as poly (straight)", () => {
     /*
@@ -41,7 +41,7 @@ describe("MarkAdjacentToSnake", () => {
       [null, GridCell.POLY, GridCell.SNAKE, GridCell.POLY, null],
     ];
 
-    const strategy = new MarkAdjacentToSnake();
+    const strategy = new MarkOrthogonalToSnakeBody();
 
     const solved = strategy.solve(puzzle);
 
@@ -76,7 +76,7 @@ describe("MarkAdjacentToSnake", () => {
       [GridCell.SNAKE, GridCell.SNAKE, GridCell.SNAKE, GridCell.POLY, null],
     ]);
 
-    const strategy = new MarkAdjacentToSnake();
+    const strategy = new MarkOrthogonalToSnakeBody();
 
     const solved = strategy.solve(puzzle);
 
@@ -107,7 +107,7 @@ describe("MarkAdjacentToSnake", () => {
       [null, null, null, GridCell.POLY, EGG],
     ]);
 
-    const strategy = new MarkAdjacentToSnake();
+    const strategy = new MarkOrthogonalToSnakeBody();
 
     const solved = strategy.solve(puzzle);
 

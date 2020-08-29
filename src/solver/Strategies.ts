@@ -1,8 +1,8 @@
 import { Strategy } from './strategy/Strategy';
 import { GrowSnakeThatCanOnlyMoveInOneDirection } from './strategy/GrowSnakeThatCanOnlyMoveInOneValidDirection';
-import { MarkAdjacentToSnake } from './strategy/MarkAdjacentToSnake';
+import { MarkOrthogonalToSnakeBody } from './strategy/MarkOrthogonalToSnakeBody';
 
 export const Strategies: Strategy[] = [
     new GrowSnakeThatCanOnlyMoveInOneDirection(),
-    new MarkAdjacentToSnake(),
+    new MarkOrthogonalToSnakeBody(),
 ];
