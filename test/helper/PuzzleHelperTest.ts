@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {PuzzleHelper, SnakeDirection} from '../../src/helper/PuzzleHelper';
 import {Grid, Neighbours} from '../../src/grid/Grid';
-import {GridCell} from '../../src/Puzzle';
+import {GridCell, Puzzle} from '../../src/Puzzle';
 import {PointInt} from 'polyomino';
 import {EGG, HintCell} from '../../src/hinter/HintedPuzzle';
 
@@ -184,7 +184,7 @@ describe("PuzzleHelper", () => {
          * o . 1
          */
         // Given the above, ends are top left and bottom left
-        
+
         const grid = new Grid(3, 3, [
             [GridCell.SNAKE, GridCell.SNAKE, null],
             [null, GridCell.SNAKE, null],
@@ -200,6 +200,31 @@ describe("PuzzleHelper", () => {
 
         expect(ends.toArray()[1].x).to.equal(0);
         expect(ends.toArray()[1].y).to.equal(2);
+    });
+
+    it("isSnakeHead works", () => {
+        /*
+         * . .
+         *   .
+         * o . 1
+         */
+        // Given the above, head is top left and bottom left
+
+        const grid = new Grid(3, 3, [
+            [GridCell.SNAKE, GridCell.SNAKE, null],
+            [null, GridCell.SNAKE, null],
+            [EGG, GridCell.SNAKE, 1],
+        ]);
+
+        expect(PuzzleHelper.isSnakeHead(grid, 0, 0)).to.be.true;
+        expect(PuzzleHelper.isSnakeHead(grid, 1, 0)).to.be.false;
+        expect(PuzzleHelper.isSnakeHead(grid, 2, 0)).to.be.false;
+        expect(PuzzleHelper.isSnakeHead(grid, 0, 1)).to.be.false;
+        expect(PuzzleHelper.isSnakeHead(grid, 1, 1)).to.be.false;
+        expect(PuzzleHelper.isSnakeHead(grid, 2, 1)).to.be.false;
+        expect(PuzzleHelper.isSnakeHead(grid, 0, 2)).to.be.true;
+        expect(PuzzleHelper.isSnakeHead(grid, 1, 2)).to.be.false;
+        expect(PuzzleHelper.isSnakeHead(grid, 2, 2)).to.be.false;
     });
 
 });
