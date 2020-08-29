@@ -227,4 +227,32 @@ describe("PuzzleHelper", () => {
         expect(PuzzleHelper.isSnakeHead(grid, 2, 2)).to.be.false;
     });
 
+    it("getSnakeBody works", () => {
+        /*
+         * . .
+         *   .
+         * o . 1
+         */
+        // Given the above, body is middle column
+
+        const grid = new Grid(3, 3, [
+            [GridCell.SNAKE, GridCell.SNAKE, null],
+            [null, GridCell.SNAKE, null],
+            [EGG, GridCell.SNAKE, 1],
+        ]);
+
+        const body = PuzzleHelper.getSnakeBody(grid);
+
+        expect(body.size).to.equal(3);
+
+        expect(body.toArray()[0].x).to.equal(1);
+        expect(body.toArray()[0].y).to.equal(0);
+
+        expect(body.toArray()[1].x).to.equal(1);
+        expect(body.toArray()[1].y).to.equal(1);
+
+        expect(body.toArray()[2].x).to.equal(1);
+        expect(body.toArray()[2].y).to.equal(2);
+    });
+
 });

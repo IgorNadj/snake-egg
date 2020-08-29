@@ -102,4 +102,17 @@ export class PuzzleHelper {
         return cell === GridCell.SNAKE || cell === EGG;
     }
 
+    public static getSnakeBody(grid: Grid<any>): Set<PointInt> {
+        let points: Set<PointInt> = Set();
+        for (let x = 0; x < grid.width; x++) {
+            for (let y = 0; y < grid.height; y++) {
+                const cell = grid.get(x, y);
+                if (this.isSnake(cell) && !this.isSnakeHead(grid, x, y)) {
+                    points = points.add(new PointInt(x, y));
+                }
+            }
+        }
+        return points;
+    }
+
 }
