@@ -32,6 +32,18 @@ describe("Grid", () => {
         expect(actual.get(1, 1)).to.equal(5);
     });
 
+    it('equals works', () => {
+        let grid1: Grid<any> = new Grid(2, 2, [[1, 2], [null, null]]);
+
+        let grid2: Grid<any> = new Grid(2, 2, [[null, 2], [null, 4]]);
+
+        expect(grid1.equals(grid2)).to.be.false;
+        expect(grid2.equals(grid1)).to.be.false;
+
+        expect(grid1.equals(grid1)).to.be.true;
+        expect(grid2.equals(grid2)).to.be.true;
+    })
+
     it('cellsDifferent works', () => {
         let grid1: Grid<any> = new Grid(2, 2);
         grid1 = grid1.fromArray([[1, 2], [null, null]]);

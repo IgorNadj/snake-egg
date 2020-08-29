@@ -91,6 +91,10 @@ export class Grid<T> {
         return count;
     }
 
+    public equals(other: Grid<T>): boolean {
+        return this.cellsDifferent(other).size === 0;
+    }
+
     public cellsDifferent(other: Grid<T>): Set<PointInt> {
         if (other.width !== this.width || other.height !== this.height) {
             throw 'Size must match';
