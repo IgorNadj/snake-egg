@@ -19,8 +19,12 @@ export class Grid<T> {
 
     protected grid: T[][];
 
-    constructor(readonly width: number, readonly height: number) {
-        this.grid = Array(height).fill(null).map((row) => Array(width).fill(null));
+    constructor(readonly width: number, readonly height: number, array?: T[][]) {
+        if (array) {
+            this.grid = array;
+        } else {
+            this.grid = Array(height).fill(null).map((row) => Array(width).fill(null));
+        }
     }
 
     public get(x: number, y: number): T {
