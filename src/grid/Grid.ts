@@ -1,5 +1,6 @@
-import { Set } from 'immutable';
-import { PointInt } from 'polyomino';
+import {Set} from 'immutable';
+import {PointInt} from 'polyomino';
+import {GridRegion} from "./GridRegion";
 
 export type Neighbours<X> = {
     top: X | null,
@@ -10,6 +11,20 @@ export type Neighbours<X> = {
     bottomRight: X | null,
     bottomLeft: X | null,
     topLeft: X | null,
+}
+
+export enum OrthogonalDirections {
+    TOP = 'top',
+    RIGHT = 'right',
+    BOTTOM = 'bottom',
+    LEFT = 'left',
+}
+
+export const OrthogonalTransforms = {
+    TOP: new PointInt(0, -1),
+    RIGHT: new PointInt(1, 0),
+    BOTTOM: new PointInt(0, 1),
+    LEFT: new PointInt(-1, 0),
 }
 
 /**
@@ -49,7 +64,7 @@ export class Grid<T> {
     }
 
     public getGridNeighbours(x: number, y: number): Neighbours<T> {
-        const grid = this.toArray();
+        const grid = this.grid;
         return {
             top: y <= 0 ? null : grid[y - 1][x],
             right: x >= this.width - 1 ? null : grid[y][x + 1],
@@ -63,19 +78,22 @@ export class Grid<T> {
     }
 
     /**
-     * @param x 
-     * @param y 
-     * @param contents one or more acceptible cell contents
+     * Count number of orthogonally adjacent cells matching value
+     *
+     * @param x
+     * @param y
+     * @param values one or more acceptable cell values
      */
-    public countAdjacentCells(x: number, y: number, contents: T | T[]): number {
-        const contentsArr = Array.isArray(contents) ? contents : [contents];
+    public countAdjacentCells(x: number, y: number, values: T | T[]): number {
+        const contentsArr = Array.isArray(values) ? values : [values];
         let count = 0;
         const neighbours = this.getGridNeighbours(x, y);
-        ['top', 'right', 'bottom', 'left'].forEach((dir) => {
-            if (contentsArr.includes(neighbours[dir])) {
+        for (const key in OrthogonalDirections) {
+            const direction = OrthogonalDirections[key];
+            if (contentsArr.includes(neighbours[direction])) {
                 count++;
             }
-        })
+        }
         return count;
     }
 
@@ -111,6 +129,47 @@ export class Grid<T> {
         }
 
         return diff;
+    }
+
+    public orthogonallyConnectedRegions(cellValue: T): Set<GridRegion> {
+        let regions = Set<GridRegion>();
+        let cellsUsed: boolean[][] = Array(this.height).fill(null).map((row) => Array(this.width).fill(false));
+        for (let x = 0; x < this.width; x++) {
+            for (let y = 0; y < this.height; y++) {
+                if (cellsUsed[y][x]){
+                    continue;
+                }
+
+                const thisCell = new PointInt(x, y);
+
+                if (this.grid[y][x] === cellValue) {
+                    // match
+
+                    // first we create a new region for this cell
+                    let thisRegion = new GridRegion(Set([thisCell]));
+                    regions = regions.add(thisRegion);
+
+                    // next, we look for and merge this region with any touching orthogonally adjacent regions
+                    for (const direction in OrthogonalDirections) {
+                        const adjacentCell = thisCell.add(OrthogonalTransforms[direction]);
+
+                        for (const otherRegion of regions) {
+                            if (otherRegion === thisRegion) continue;
+
+                            if (otherRegion.contains(adjacentCell)) {
+                                regions = regions.remove(thisRegion);
+                                regions = regions.remove(otherRegion);
+
+                                thisRegion = thisRegion.merge(otherRegion); // thisRegion has consumed and expanded
+
+                                regions = regions.add(thisRegion);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return regions;
     }
 
     public fromArray(array: T[][]): Grid<T> {

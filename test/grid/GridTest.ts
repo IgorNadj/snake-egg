@@ -136,6 +136,63 @@ describe("Grid", () => {
         expect(numAdjacent8or9).to.equal(2);
     });
 
+    it("orthogonallyConnectedRegions works", () => {
+        /*
+         * Grid:
+         *
+         *   _ 5 5
+         *
+         * has:
+         *  - a 5 region in the top right (size 1),
+         */
+        const grid = new Grid<any>(3, 1, [
+            [null, 5, 5],
+        ]);
+
+        const regions = grid.orthogonallyConnectedRegions(5);
+
+        expect(regions.size).to.equal(1);
+
+        expect(regions.toArray()[0].size).to.equal(2);
+    });
+
+    it("orthogonallyConnectedRegions works complex test", () => {
+        /*
+         * Grid:
+         *
+         *   5 _ 5 w 5 5
+         *   _ 5 5 _ _ _
+         *
+         * has:
+         *  - a 5 region in the top left (size 1),
+         *  - a 5 region in the middle (size 3),
+         *  - and a 5 region in the top right (size 2)
+         */
+        const grid = new Grid<any>(6, 2, [
+            [5, null, 5, 'w', 5, 5],
+            [null, 5, 5, null, null, null],
+        ]);
+
+        const regions = grid.orthogonallyConnectedRegions(5);
+
+        expect(regions.size).to.equal(3);
+
+        const regionsArr = regions.toArray();
+
+        // top left region
+        expect(regionsArr[0].size).to.equal(1);
+
+        const firstPoint = regionsArr[0].cells.first(new PointInt(-1, -1)); // default just to appease the type monkey
+
+        expect(firstPoint.equals(new PointInt(0, 0))).to.be.true;
+
+        // middle region
+        expect(regionsArr[1].size).to.equal(3);
+
+        // top right
+        expect(regionsArr[2].size).to.equal(2);
+    });
+
     it("count works", () => {
         let grid: Grid<number> = new Grid(2, 2);
 
