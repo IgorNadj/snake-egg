@@ -1,9 +1,13 @@
 import { HintedPuzzle, HintCell, EGG } from "../hinter/HintedPuzzle";
 import { GridCell } from "../Puzzle";
 import { Grid } from "../grid/Grid";
+import {GridRegion} from "../grid/GridRegion";
+import {Map, Set} from "immutable";
 
 
 export type SolveCell = GridCell | typeof EGG | number | null;
+
+export type SolvePolyCell = number | GridCell.POLY;
 
 /**
  * A Solver uses a Solving Puzzle to gradually solve a hinted puzzle.
@@ -49,6 +53,46 @@ export class SolvingPuzzle {
 
         const newSolveGrid = this.solveGrid.set(x, y, contents);
         return new SolvingPuzzle(this.hintedPuzzle, newSolveGrid);
+    }
+
+    /**
+     * Get complete or incomplete regions present on the map
+     */
+    public regions(): Map<SolvePolyCell, Set<GridRegion>> {
+        let map = Map<SolvePolyCell, Set<GridRegion>>();
+
+        map = map.set(GridCell.POLY, this.getSolveGrid().orthogonallyConnectedRegions(GridCell.POLY));
+
+        for (let i = 1; i <= this.maxNumber; i++) {
+            const regionsOfThisSize = this.getSolveGrid().orthogonallyConnectedRegions(i);
+            if (!regionsOfThisSize.isEmpty()) {
+                map = map.set(i, regionsOfThisSize);
+            }
+        }
+
+        return map;
+    }
+
+    public completeRegions(): Map<number, GridRegion> {
+        let completeRegions = Map<number, GridRegion>();
+
+        const regions = this.regions();
+
+        for (let i = 1; i <= this.maxNumber; i++) {
+            const regionsOfThisSize = regions.get(i);
+            if (regionsOfThisSize && regionsOfThisSize.size === 1) {
+                // only one region of this size, e.g. one "5" region
+                const theOnlyRegionOfThisSize: GridRegion | null = regionsOfThisSize.first();
+
+                if (theOnlyRegionOfThisSize && theOnlyRegionOfThisSize.size === i) {
+                    // the region is complete, e.g. 5 cells are part of the "5" region
+
+                    completeRegions = completeRegions.set(i, theOnlyRegionOfThisSize);
+                }
+            }
+        }
+
+        return completeRegions;
     }
 
     protected createSolveGridFromHintGrid(hintGrid: Grid<HintCell>): Grid<SolveCell> {
